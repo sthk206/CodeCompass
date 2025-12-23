@@ -224,3 +224,6 @@ data/
 
 # macOS
 .DS_Store
+
+scratch
+ast_jsons
