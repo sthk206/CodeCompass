@@ -12,7 +12,7 @@ dependencies = [
     "rich>=13.0.0",
     
     # LLM & Embeddings
-    "ollama>=0.3.0",
+    "ollama>=0.5.4",
     
     # Vector Store
     "lancedb>=0.6.0",

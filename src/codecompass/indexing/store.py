@@ -109,7 +109,21 @@ class CodeStore:
         # Since create_fts_index is async, we wait to utilize hybrid search
         self.wait_for_index("search_text_idx")
 
-        self._save_metadata(len(records))
+
+
+        # Collect all unique imports from chunks
+        all_imports = set()
+        for chunk in chunks:
+            if chunk.imports:
+                for imp in chunk.imports:
+                    # Extract module name: "from typer import ..." → "typer"
+                    if imp.startswith("from "):
+                        module = imp.split()[1].split(".")[0]
+                    elif imp.startswith("import "):
+                        module = imp.split()[1].split(".")[0].split(",")[0]
+                    all_imports.add(module)
+    
+        self._save_metadata(len(records), list(all_imports))
 
         return len(records)
 
@@ -125,20 +139,24 @@ class CodeStore:
         
         if chunk.docstring:
             parts.append(f"Description: {chunk.docstring}")
+
+        if chunk.imports:
+            parts.append(f"File imports: {', '.join(chunk.imports)}")
         
         parts.append(f"Code:\n{chunk.code}")
         
         return "\n".join(parts)
     
 
-    def _save_metadata(self, chunk_count: int):
+    def _save_metadata(self, chunk_count: int, imports: list[str] = None):
         """Save index metadata"""
         from datetime import datetime
 
         metadata = {
             "repo_path": str(self.repo_path),
             "indexed_at": datetime.now().isoformat(),
-            "chunk_count": chunk_count
+            "chunk_count": chunk_count,
+            "imports": imports or []
         }
 
         metadata_path = self.db_path / "metadata.json"

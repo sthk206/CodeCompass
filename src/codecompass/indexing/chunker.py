@@ -19,6 +19,7 @@ class CodeChunk:
     end_line: int
     docstring: str | None
     parent_class: str | None
+    imports: list[str] | None = None
 
 class PythonChunker:
     """Extract code from Python files with AST parsing"""
@@ -35,13 +36,20 @@ class PythonChunker:
             return # skip binary files
         
         tree = self.parser.parse(content_bytes)
-
-        # astdict = serialize_node(tree.root_node, file_path.read_bytes())
-        # with open('astdict.json', 'w', encoding='utf-8') as f:
-        #     json.dump(astdict, f, indent=2)
-        # return
         relative_path = str(file_path.relative_to(repo_root))
-        yield from self._extract_chunks(tree.root_node, content_bytes, relative_path)
+        imports = self._extract_imports(tree.root_node, content_bytes)
+        for chunk in self._extract_chunks(tree.root_node, content_bytes, relative_path):
+            chunk.imports = imports  # attach imports to each chunk
+            yield chunk
+        # yield from self._extract_chunks(tree.root_node, content_bytes, relative_path)
+
+    def _extract_imports(self, node, source: bytes) -> list[str]:
+        """Extract all imports from file"""
+        imports = []
+        for child in node.children:
+            if child.type in ("import_statement", "import_from_statement"):
+                imports.append(source[child.start_byte:child.end_byte].decode('utf-8'))
+        return imports
 
     def _extract_chunks(self, node, source: bytes, file_path: str, parent_class: str = None):
         """Recurisvely extract chunks from AST nodes"""
@@ -86,14 +94,6 @@ class PythonChunker:
 
             elif child.type not in ("function_definition", "class_definition"):
                 yield from self._extract_chunks(child, source, file_path, parent_class)
-
-    def _extract_imports(self, node, source: str) -> list[str]:
-        """Extract import statements from file."""
-        imports = []
-        for child in node.children:
-            if child.type in ("import_statement", "import_from_statement"):
-                imports.append(source[child.start_byte:child.end_byte])
-        return imports
     
     def _make_chunk(self, node, source: bytes, file_path: str, chunk_type: str, parent_class: str = None, node_for_code: any = None):
         """Create CodeChunk from AST node"""
@@ -158,7 +158,7 @@ def chunk_repository(repo_path: Path) -> Iterator[CodeChunk]:
     
     ignore_patterns = [
         "venv", ".venv", "node_modules", "__pycache__", 
-        ".git", "build", "dist", ".eggs", "egg-info", "scratch", "scripts"
+        ".git", "build", "dist", ".eggs", "egg-info", "scratch", "scripts", "evaluation"
     ]
 
     filtered_files = [

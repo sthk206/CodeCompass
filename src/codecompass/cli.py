@@ -2,6 +2,7 @@ from pathlib import Path
 import typer
 from rich.console import Console
 from rich.markdown import Markdown
+from codecompass.retrieval.search import baseline_search, hyde_search, query_expansion_search
 
 app = typer.Typer(
     name="codecompass",
@@ -79,34 +80,14 @@ def search(
     
     
     repo_path = repo_path.resolve()
+    strategies = {0: hyde_search, 1: baseline_search, 2: query_expansion_search}
+    
+    if search_type not in strategies:
+        console.print("[red]Invalid search type[/red]")
+        raise typer.Exit(1)
     
     try:
-        if search_type == 0:
-            results = search_code(repo_path, query, limit=limit)
-        elif search_type == 1:
-            from codecompass.llm.ollama import generate
-            prompt = f"""Write a 3-5 line Python function that would match this search query.
-Output ONLY the code, no explanation.
-
-Query: {query}
-````python
-"""
-            hypothetical = "def" + generate(prompt)
-            print(hypothetical, "\n!!!")
-            results = search_code(repo_path, hypothetical, limit=limit)
-        elif search_type == 2:
-            from codecompass.llm.ollama import generate
-            prompt = f"""Add 5-10 Python library or decorator names related to this code search query.
-Only output the expanded query, nothing else.
-
-Query: {query}
-Expanded query:"""
-            expanded_query = generate(prompt)
-            print(expanded_query, "\n!!!")
-            results = search_code(repo_path, expanded_query, limit=limit)
-
-        else:
-            raise ValueError("Search Type not valid")
+        results = strategies[search_type](repo_path, query, limit)
         
         if not results:
             console.print("[yellow]No results found.[/yellow]")
@@ -124,6 +105,109 @@ Expanded query:"""
     except ValueError as e:
         console.print(f"[red]{e}[/red]")
         raise typer.Exit(1)
+    
+@app.command()
+def ask(
+    question: str = typer.Argument(..., help="Question about the codebase"),
+    repo_path: Path = typer.Option(
+        ".",
+        "--repo", "-r",
+        help="Path to the repository",
+        exists=True,
+    ),
+    search_type: int = typer.Option(
+        0,
+        "--stype", "-s",
+        help="Search strategy: 0=HyDE (default), 1=baseline, 2=query expansion"
+    ),
+):
+    """Ask a question about the codebase."""
+    from codecompass.retrieval.rag import answer_question
+    
+    repo_path = repo_path.resolve()
+    
+    console.print(f"[dim]Searching codebase...[/dim]")
+    
+    try:
+        answer = answer_question(repo_path, question, search_type=search_type)
+        console.print("\n")
+        console.print(Markdown(answer))
+    except Exception as e:
+        console.print(f"[red]Error: {e}[/red]")
+        raise typer.Exit(1)
+    
+
+@app.command()
+def chat(
+    repo_path: Path = typer.Argument(
+        ".",
+        help="Path to the repository",
+        exists=True,
+    ),
+    search_type: int = typer.Option(
+        0,
+        "--stype", "-s",
+        help="Search strategy: 0=HyDE (default), 1=baseline, 2=query expansion"
+    ),
+):
+    """Start an interactive chat about the codebase."""
+    from codecompass.retrieval.rag import answer_question
+    from codecompass.indexing.store import CodeStore
+    
+    repo_path = repo_path.resolve()
+    store = CodeStore(repo_path)
+    
+    # Check if indexed
+    if not store.is_indexed():
+        console.print(f"[yellow]Repository not indexed. Indexing now...[/yellow]")
+        from codecompass.indexing.store import index_repository
+        index_repository(repo_path)
+    
+    stats = store.get_stats()
+    
+    search_names = {0: "HyDE", 1: "Baseline", 2: "Query Expansion"}
+    
+    console.print("\n[bold green]╔═══════════════════════════════════════════════════════╗[/bold green]")
+    console.print("[bold green]║           Welcome to CodeCompass! 🧭                   ║[/bold green]")
+    console.print("[bold green]╚═══════════════════════════════════════════════════════╝[/bold green]")
+    console.print(f"\n[dim]Repository:[/dim] {repo_path}")
+    console.print(f"[dim]Indexed chunks:[/dim] {stats.get('chunk_count', 'unknown')}")
+    console.print(f"[dim]Search strategy:[/dim] {search_names.get(search_type, 'HyDE')}")
+    console.print(f"\n[dim]Type 'exit' to quit, 'help' for commands.[/dim]\n")
+    
+    while True:
+        try:
+            question = console.input("[bold cyan]You:[/bold cyan] ").strip()
+            
+            if not question:
+                continue
+            
+            if question.lower() == "exit":
+                console.print("[dim]Goodbye![/dim]")
+                break
+            
+            if question.lower() == "help":
+                console.print("""
+[bold]Commands:[/bold]
+  exit     - Quit the chat
+  help     - Show this help message
+
+[bold]Tips:[/bold]
+  • Ask about specific functions: "What does the login function do?"
+  • Ask about architecture: "How is authentication implemented?"
+  • Ask for explanations: "Explain the UserService class"
+""")
+                continue
+            
+            console.print("[dim]Thinking...[/dim]")
+            answer = answer_question(repo_path, question, search_type=search_type)
+            console.print(f"\n[bold green]CodeCompass:[/bold green]")
+            console.print(Markdown(answer))
+            console.print()
+            
+        except KeyboardInterrupt:
+            console.print("\n[dim]Goodbye![/dim]")
+            break
 
 if __name__ == "__main__":
     app()
