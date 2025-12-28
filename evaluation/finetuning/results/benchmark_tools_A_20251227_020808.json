@@ -1,0 +1,243 @@
+{
+  "model": "qwen2.5:7b",
+  "timestamp": "2025-12-27T02:08:08.553993",
+  "summary": {
+    "total": 21,
+    "valid_json": 21,
+    "correct_tool": 18,
+    "accuracy": 0.8571428571428571
+  },
+  "results": [
+    {
+      "test_id": "onboard_1",
+      "category": "onboarding",
+      "question": "I just joined this project. Can you give me an overview of how it's structured?",
+      "expected_tool": "get_file_structure",
+      "actual_tool": "get_file_structure",
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": \"get_file_structure\", \"arguments\": {}}",
+      "error": null
+    },
+    {
+      "test_id": "onboard_2",
+      "category": "onboarding",
+      "question": "What are the main entry points to this application?",
+      "expected_tool": "search_code",
+      "actual_tool": "search_code",
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"entry point\"}}",
+      "error": null
+    },
+    {
+      "test_id": "onboard_3",
+      "category": "onboarding",
+      "question": "Where should I look to understand how the API works?",
+      "expected_tool": "search_code",
+      "actual_tool": "search_code",
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"API implementation\"}}",
+      "error": null
+    },
+    {
+      "test_id": "concept_1",
+      "category": "understanding",
+      "question": "How does this codebase handle errors? Is there a consistent pattern?",
+      "expected_tool": "search_code",
+      "actual_tool": "search_code",
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"error handling\"}}",
+      "error": null
+    },
+    {
+      "test_id": "concept_2",
+      "category": "understanding",
+      "question": "What's the data flow from when a user submits a form to when it's saved in the database?",
+      "expected_tool": "search_code",
+      "actual_tool": "search_code",
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"form submission save database\"}}",
+      "error": null
+    },
+    {
+      "test_id": "concept_3",
+      "category": "understanding",
+      "question": "How is authentication implemented? Walk me through the flow.",
+      "expected_tool": "search_code",
+      "actual_tool": "search_code",
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"authentication flow\"}}",
+      "error": null
+    },
+    {
+      "test_id": "concept_4",
+      "category": "understanding",
+      "question": "Is there any caching in this codebase? How is it used?",
+      "expected_tool": "search_code",
+      "actual_tool": "search_code",
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"caching used\"}}",
+      "error": null
+    },
+    {
+      "test_id": "impact_1",
+      "category": "impact",
+      "question": "If I change the User model, what parts of the codebase might be affected?",
+      "expected_tool": "find_references",
+      "actual_tool": "search_code",
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"User model\"}}",
+      "error": null
+    },
+    {
+      "test_id": "impact_2",
+      "category": "impact",
+      "question": "What would break if we removed the legacy_api module?",
+      "expected_tool": "find_references",
+      "actual_tool": "search_code",
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"legacy_api\"}}",
+      "error": null
+    },
+    {
+      "test_id": "impact_3",
+      "category": "impact",
+      "question": "Is the config.py file used everywhere or just in a few places?",
+      "expected_tool": "find_references",
+      "actual_tool": "search_code",
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"config.py used\"}}",
+      "error": null
+    },
+    {
+      "test_id": "debug_1",
+      "category": "debugging",
+      "question": "Users are reporting slow login times. Where should I look to investigate?",
+      "expected_tool": "search_code",
+      "actual_tool": "search_code",
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"login performance\"}}",
+      "error": null
+    },
+    {
+      "test_id": "debug_2",
+      "category": "debugging",
+      "question": "There's a bug with payment processing. Show me the payment-related code.",
+      "expected_tool": "search_code",
+      "actual_tool": "search_code",
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"payment processing\"}}",
+      "error": null
+    },
+    {
+      "test_id": "debug_3",
+      "category": "debugging",
+      "question": "What changed in the authentication code recently? Could that explain the new bug?",
+      "expected_tool": "get_git_history",
+      "actual_tool": "get_git_history",
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": \"get_git_history\", \"arguments\": {\"file_path\": \"authentication\"}}",
+      "error": null
+    },
+    {
+      "test_id": "plan_1",
+      "category": "planning",
+      "question": "I need to add rate limiting. Is there any existing rate limiting code I can extend?",
+      "expected_tool": "search_code",
+      "actual_tool": "search_code",
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"rate limiting\"}}",
+      "error": null
+    },
+    {
+      "test_id": "plan_2",
+      "category": "planning",
+      "question": "We want to add a new API endpoint. Where are the existing endpoints defined?",
+      "expected_tool": "search_code",
+      "actual_tool": "search_code",
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"API endpoint definition\"}}",
+      "error": null
+    },
+    {
+      "test_id": "plan_3",
+      "category": "planning",
+      "question": "What database ORM or query pattern does this project use?",
+      "expected_tool": "search_code",
+      "actual_tool": "search_code",
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"ORM query pattern\"}}",
+      "error": null
+    },
+    {
+      "test_id": "quality_1",
+      "category": "quality",
+      "question": "Are there any TODO or FIXME comments I should be aware of?",
+      "expected_tool": "search_code",
+      "actual_tool": "search_code",
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"TODO FIXME\"}}",
+      "error": null
+    },
+    {
+      "test_id": "quality_2",
+      "category": "quality",
+      "question": "How are environment variables handled? Are there any hardcoded secrets?",
+      "expected_tool": "search_code",
+      "actual_tool": "search_code",
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"environment variables secrets\"}}",
+      "error": null
+    },
+    {
+      "test_id": "no_tool_1",
+      "category": "no_tool",
+      "question": "What's the difference between REST and GraphQL?",
+      "expected_tool": null,
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": null, \"answer\": \"REST is a stateless, client-server architecture for web services using HTTP. It typically uses CRUD operations and returns data in formats like JSON or XML. GraphQL is a query language for APIs and a runtime for executing those queries by allowing clients to request exactly the data they need in a single operation.\"}",
+      "error": null
+    },
+    {
+      "test_id": "no_tool_2",
+      "category": "no_tool",
+      "question": "Can you explain what dependency injection is?",
+      "expected_tool": null,
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": null, \"answer\": \"Dependency injection is a design pattern that allows objects to be passed the dependencies they need instead of creating them themselves. This promotes loose coupling and makes code more modular and testable.\"}",
+      "error": null
+    },
+    {
+      "test_id": "no_tool_3",
+      "category": "no_tool",
+      "question": "What's a good way to structure Python tests?",
+      "expected_tool": null,
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": null, \"answer\": \"Use the unittest or pytest frameworks. Organize tests by functionality in separate files or classes. Include setUp and tearDown methods for initialization and cleanup.\"}",
+      "error": null
+    }
+  ]
+}

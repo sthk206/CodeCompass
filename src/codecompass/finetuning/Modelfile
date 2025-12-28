@@ -1,0 +1,7 @@
+FROM qwen2.5:7b
+ADAPTER ./codecompass-explain-adapter.gguf
+
+SYSTEM """Explain this code concisely. Focus on what it does, why it's designed this way, and any notable patterns or techniques."""
+
+PARAMETER temperature 0.1
+PARAMETER stop "<|im_end|>"

@@ -1,0 +1,471 @@
+{
+  "model": "qwen2.5:7b",
+  "timestamp": "2025-12-27T01:56:17.515528",
+  "summary": {
+    "total": 39,
+    "valid_json": 39,
+    "correct_tool": 5,
+    "accuracy": 0.1282051282051282
+  },
+  "by_category": {
+    "search_code": {
+      "total": 6,
+      "correct": 0
+    },
+    "find_references": {
+      "total": 10,
+      "correct": 0
+    },
+    "read_file": {
+      "total": 5,
+      "correct": 0
+    },
+    "get_dependencies": {
+      "total": 5,
+      "correct": 0
+    },
+    "get_file_structure": {
+      "total": 4,
+      "correct": 0
+    },
+    "get_git_history": {
+      "total": 4,
+      "correct": 0
+    },
+    "no_tool": {
+      "total": 5,
+      "correct": 5
+    }
+  },
+  "results": [
+    {
+      "test_id": "search_1",
+      "category": "search_code",
+      "question": "How is authentication implemented in this codebase?",
+      "expected_tool": "search_code",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"authentication\"}}",
+      "error": null
+    },
+    {
+      "test_id": "search_2",
+      "category": "search_code",
+      "question": "Is there any caching logic? Show me where.",
+      "expected_tool": "search_code",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"caching logic\"}}",
+      "error": null
+    },
+    {
+      "test_id": "search_3",
+      "category": "search_code",
+      "question": "Where is error handling done in this project?",
+      "expected_tool": "search_code",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"error handling\"}}",
+      "error": null
+    },
+    {
+      "test_id": "search_4",
+      "category": "search_code",
+      "question": "Find code related to user permissions and access control",
+      "expected_tool": "search_code",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"permissions access control\"}}",
+      "error": null
+    },
+    {
+      "test_id": "search_5",
+      "category": "search_code",
+      "question": "How does the app connect to the database?",
+      "expected_tool": "search_code",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"database connection\"}}",
+      "error": null
+    },
+    {
+      "test_id": "refs_1",
+      "category": "find_references",
+      "question": "What calls the validate_user function?",
+      "expected_tool": "find_references",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"find_references\", \"arguments\": {\"symbol\": \"validate_user\"}}",
+      "error": null
+    },
+    {
+      "test_id": "refs_2",
+      "category": "find_references",
+      "question": "Where is the UserService class used?",
+      "expected_tool": "find_references",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"find_references\", \"arguments\": {\"symbol\": \"UserService\"}}",
+      "error": null
+    },
+    {
+      "test_id": "refs_3",
+      "category": "find_references",
+      "question": "If I modify the DatabaseConnection class, what might break?",
+      "expected_tool": "find_references",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"find_references\", \"arguments\": {\"symbol\": \"DatabaseConnection\"}}",
+      "error": null
+    },
+    {
+      "test_id": "refs_4",
+      "category": "find_references",
+      "question": "What would break if we removed the legacy_api module?",
+      "expected_tool": "find_references",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"find_references\", \"arguments\": {\"symbol\": \"legacy_api\"}}",
+      "error": null
+    },
+    {
+      "test_id": "refs_5",
+      "category": "find_references",
+      "question": "Is the config module imported anywhere besides main.py?",
+      "expected_tool": "find_references",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"find_references\", \"arguments\": {\"symbol\": \"config\"}}",
+      "error": null
+    },
+    {
+      "test_id": "refs_6",
+      "category": "find_references",
+      "question": "Show me all the places that call send_email",
+      "expected_tool": "find_references",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"find_references\", \"arguments\": {\"symbol\": \"send_email\"}}",
+      "error": null
+    },
+    {
+      "test_id": "refs_7",
+      "category": "find_references",
+      "question": "What depends on the utils.helpers module?",
+      "expected_tool": "find_references",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"find_references\", \"arguments\": {\"symbol\": \"utils.helpers\"}}",
+      "error": null
+    },
+    {
+      "test_id": "refs_8",
+      "category": "find_references",
+      "question": "I want to rename the process_payment function. What files would I need to update?",
+      "expected_tool": "find_references",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"find_references\", \"arguments\": {\"symbol\": \"process_payment\"}}",
+      "error": null
+    },
+    {
+      "test_id": "read_1",
+      "category": "read_file",
+      "question": "Show me the contents of src/main.py",
+      "expected_tool": "read_file",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"read_file\", \"arguments\": {\"file_path\": \"src/main.py\"}}",
+      "error": null
+    },
+    {
+      "test_id": "read_2",
+      "category": "read_file",
+      "question": "What's in the README.md file?",
+      "expected_tool": "read_file",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"read_file\", \"arguments\": {\"file_path\": \"README.md\"}}",
+      "error": null
+    },
+    {
+      "test_id": "read_3",
+      "category": "read_file",
+      "question": "Open config/settings.py",
+      "expected_tool": "read_file",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"read_file\", \"arguments\": {\"file_path\": \"config/settings.py\"}}",
+      "error": null
+    },
+    {
+      "test_id": "read_4",
+      "category": "read_file",
+      "question": "Can you display lines 50-100 of app/models.py?",
+      "expected_tool": "read_file",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"read_file\", \"arguments\": {\"file_path\": \"app/models.py\", \"start_line\": 50, \"end_line\": 100}}",
+      "error": null
+    },
+    {
+      "test_id": "read_5",
+      "category": "read_file",
+      "question": "Let me see the pyproject.toml",
+      "expected_tool": "read_file",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"read_file\", \"arguments\": {\"file_path\": \"pyproject.toml\"}}",
+      "error": null
+    },
+    {
+      "test_id": "deps_1",
+      "category": "get_dependencies",
+      "question": "What external packages does main.py use?",
+      "expected_tool": "get_dependencies",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"get_dependencies\", \"arguments\": {\"file_path\": \"main.py\"}}",
+      "error": null
+    },
+    {
+      "test_id": "deps_2",
+      "category": "get_dependencies",
+      "question": "Show me the imports in src/services/auth.py",
+      "expected_tool": "get_dependencies",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"get_dependencies\", \"arguments\": {\"file_path\": \"src/services/auth.py\"}}",
+      "error": null
+    },
+    {
+      "test_id": "deps_3",
+      "category": "get_dependencies",
+      "question": "What does the payment module depend on?",
+      "expected_tool": "get_dependencies",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"get_dependencies\", \"arguments\": {\"file_path\": \"payment_module.py\"}}",
+      "error": null
+    },
+    {
+      "test_id": "deps_4",
+      "category": "get_dependencies",
+      "question": "Which libraries are imported in utils.py?",
+      "expected_tool": "get_dependencies",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"get_dependencies\", \"arguments\": {\"file_path\": \"utils.py\"}}",
+      "error": null
+    },
+    {
+      "test_id": "struct_1",
+      "category": "get_file_structure",
+      "question": "What's the overall structure of this project?",
+      "expected_tool": "get_file_structure",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"get_file_structure\", \"arguments\": {}}",
+      "error": null
+    },
+    {
+      "test_id": "struct_2",
+      "category": "get_file_structure",
+      "question": "Show me how the src folder is organized",
+      "expected_tool": "get_file_structure",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"get_file_structure\", \"arguments\": {\"directory\": \"src\"}}",
+      "error": null
+    },
+    {
+      "test_id": "struct_3",
+      "category": "get_file_structure",
+      "question": "I'm new here. Can you give me a map of the codebase?",
+      "expected_tool": "get_file_structure",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"get_file_structure\", \"arguments\": {}}",
+      "error": null
+    },
+    {
+      "test_id": "struct_4",
+      "category": "get_file_structure",
+      "question": "What files are in the tests directory?",
+      "expected_tool": "get_file_structure",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"get_file_structure\", \"arguments\": {\"directory\": \"tests\"}}",
+      "error": null
+    },
+    {
+      "test_id": "git_1",
+      "category": "get_git_history",
+      "question": "What changed in the last few commits?",
+      "expected_tool": "get_git_history",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"get_git_history\", \"arguments\": {}}",
+      "error": null
+    },
+    {
+      "test_id": "git_2",
+      "category": "get_git_history",
+      "question": "Who last modified the auth.py file?",
+      "expected_tool": "get_git_history",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"get_git_history\", \"arguments\": {\"file_path\": \"auth.py\"}}",
+      "error": null
+    },
+    {
+      "test_id": "git_3",
+      "category": "get_git_history",
+      "question": "When was the payment module last updated?",
+      "expected_tool": "get_git_history",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"get_git_history\", \"arguments\": {\"file_path\": \"payment\"}}",
+      "error": null
+    },
+    {
+      "test_id": "git_4",
+      "category": "get_git_history",
+      "question": "Has anyone touched the database code recently?",
+      "expected_tool": "get_git_history",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"get_git_history\", \"arguments\": {\"file_path\": \"database\"}}",
+      "error": null
+    },
+    {
+      "test_id": "no_tool_1",
+      "category": "no_tool",
+      "question": "What's the difference between REST and GraphQL?",
+      "expected_tool": null,
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": null, \"answer\": \"REST (Representational State Transfer) is a set of architectural principles for designing networked applications. It typically uses HTTP methods like GET, POST, PUT, DELETE to interact with resources represented as URIs. Data is usually returned in formats like JSON or XML.\n\nGraphQL, on the other hand, is a query language for APIs and a runtime for executing those queries by using a type system defined for the data. Instead of making multiple requests to different endpo",
+      "error": null
+    },
+    {
+      "test_id": "no_tool_2",
+      "category": "no_tool",
+      "question": "Can you explain what dependency injection is?",
+      "expected_tool": null,
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": null, \"answer\": \"Dependency Injection (DI) is a design pattern that allows objects to be passed the dependencies they need to function. This promotes loose coupling between components and makes code more modular and testable. In DI, instead of an object creating its own dependencies or looking up how to create them, it receives the dependencies from an external source.\"}",
+      "error": null
+    },
+    {
+      "test_id": "no_tool_3",
+      "category": "no_tool",
+      "question": "What's a good way to structure Python tests?",
+      "expected_tool": null,
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": null, \"answer\": \"A good way to structure Python tests is by using the `unittest` or `pytest` frameworks. These frameworks provide a structured approach for writing and running tests. Here are some best practices:\n\n1. **Organize Tests by Functionality**: Group related tests into classes that reflect the functionality being tested.\n2. **Use Descriptive Test Names**: Use clear, descriptive names for your test methods to indicate what is being tested.\n3. **Keep It Isolated**: Ensure each te",
+      "error": null
+    },
+    {
+      "test_id": "no_tool_4",
+      "category": "no_tool",
+      "question": "How do async/await work in Python?",
+      "expected_tool": null,
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": null, \"answer\": \"In Python, `async` and `await` are used to write asynchronous code that can handle multiple tasks concurrently without blocking. The `async def` keyword is used to define an asynchronous function, which returns a coroutine object. You can use the `await` keyword inside this function to pause execution until a certain operation (like I/O) completes. This allows other coroutines to run during the wait time, improving efficiency. To execute an async function, you typically",
+      "error": null
+    },
+    {
+      "test_id": "no_tool_5",
+      "category": "no_tool",
+      "question": "What are the SOLID principles?",
+      "expected_tool": null,
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": true,
+      "raw_response": "{\"tool\": null, \"answer\": \"The SOLID principles are five design principles intended to make software more understandable, flexible, and maintainable. They are:\n\n1. **S**ingle Responsibility Principle (SRP): A class should have only one reason to change.\n2. **O**pen/Closed Principle (OCP): Software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification.\n3. **L**iskov Substitution Principle (LSP): Objects of a superclass shall be replaceable with obje",
+      "error": null
+    },
+    {
+      "test_id": "edge_1",
+      "category": "find_references",
+      "question": "What parts of the code use the requests library?",
+      "expected_tool": "find_references",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"find_references\", \"arguments\": {\"symbol\": \"requests\"}}",
+      "error": null
+    },
+    {
+      "test_id": "edge_2",
+      "category": "search_code",
+      "question": "How does this app make HTTP requests?",
+      "expected_tool": "search_code",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"search_code\", \"arguments\": {\"query\": \"HTTP request\"}}",
+      "error": null
+    },
+    {
+      "test_id": "edge_3",
+      "category": "get_dependencies",
+      "question": "What does app/api.py import from our codebase?",
+      "expected_tool": "get_dependencies",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"get_dependencies\", \"arguments\": {\"file_path\": \"app/api.py\"}}",
+      "error": null
+    },
+    {
+      "test_id": "edge_4",
+      "category": "find_references",
+      "question": "What imports app/api.py?",
+      "expected_tool": "find_references",
+      "actual_tool": null,
+      "valid_json": true,
+      "correct_tool": false,
+      "raw_response": "{\"tool\": \"find_references\", \"arguments\": {\"symbol\": \"api\"}}",
+      "error": null
+    }
+  ]
+}
