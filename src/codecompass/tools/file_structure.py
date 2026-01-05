@@ -44,15 +44,15 @@ class FileStructureTool(BaseTool):
             target = self.repo_path / directory
             
             if not target.exists():
-                return f"Error: Directory not found: {directory}"
+                return ToolResult(success=False, data= None, error=f"Error: Directory not found: {directory}")
             
             lines = [f"📁 {directory}/"]
             self._build_tree(target, "", 0, max_depth, lines)
             
-            return "\n".join(lines)
+            return ToolResult(success=True, data="\n".join(lines))
             
         except Exception as e:
-            return f"Error getting structure: {e}"
+            return ToolResult(success=False, data= None, error=f"Error getting structure: {e}")
     
     def _build_tree(self, path: Path, prefix: str, depth: int, max_depth: int, lines: list):
         """Recursively build directory tree"""
@@ -64,7 +64,7 @@ class FileStructureTool(BaseTool):
         try:
             entries = sorted(path.iterdir(), key=lambda p: (not p.is_dir(), p.name.lower()))
         except PermissionError:
-            return ToolResult(success=False, data= None, error="Error: Permission Error")
+            return "Error: Permission Error"
 
         entries = [e for e in entries if not e.name.startswith(".") and e.name not in skip]
         
