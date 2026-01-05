@@ -4,7 +4,6 @@ from langgraph.prebuilt import ToolNode
 from langgraph.graph import StateGraph, MessagesState, END
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from codecompass.agent.memory import prepare_messages
 from codecompass.tools import create_tools
 from codecompass.config import settings
 from langchain_core.messages import BaseMessage
@@ -161,46 +160,25 @@ def create_agent(repo_path: Path, debug: bool = False):
 class CodeCompassAgent:
     """Wrapper for conversation management"""
     
-    def __init__(self, repo_path: Path, use_memory: bool = True, debug: bool = False, max_tokens: int = 3000):
+    def __init__(self, repo_path: Path, use_memory: bool = True, debug: bool = False):
         self.repo_path = Path(repo_path)
         self.graph = create_agent(self.repo_path, debug=debug)
         self.use_memory = use_memory
-        self.max_tokens = max_tokens
-
         self.messages: list = []
         self.last_state: MessagesState | None = None
-        self.last_input_context: list = []  # What AI saw last turn
-        self.last_token_count: int = 0
     
     def chat(self, user_message: str) -> str:
         """Send a message and get a response"""
         if self.use_memory:
             self.messages.append(HumanMessage(content=user_message))
-            # input_messages = self.messages
-            
-            # Add memory management with token count
-            input_messages = prepare_messages(
-                self.messages,
-                current_tokens=self.last_token_count,
-                max_tokens=self.max_tokens,
-                keep_recent_tools=2,
-            )
-            self.last_input_context = input_messages
+            input_messages = self.messages
         else:
             input_messages = [HumanMessage(content=user_message)]
         
         result = self.graph.invoke({"messages": input_messages})
         
-        last_msg = result["messages"][-1]
-        if hasattr(last_msg, "usage_metadata") and last_msg.usage_metadata:
-            self.last_token_count = last_msg.usage_metadata.get("total_tokens", 0)
-        
         if self.use_memory:
-            # self.messages = result["messages"]
-            # Preserve full converstion
-            new_messages = result["messages"][len(input_messages):]
-            self.messages.extend(new_messages)
-            self.last_state = {"messages": self.messages}
+            self.messages = result["messages"]
         
         return result["messages"][-1].content
     
@@ -208,18 +186,11 @@ class CodeCompassAgent:
         """True streaming with token-level events"""
         if self.use_memory:
             self.messages.append(HumanMessage(content=user_message))
-
-            input_messages = prepare_messages(
-                self.messages,
-                current_tokens=self.last_token_count,
-                max_tokens=self.max_tokens,
-                keep_recent_tools=2,
-            )
-            self.last_input_context = input_messages
+            input_messages = self.messages
         else:
             input_messages = [HumanMessage(content=user_message)]
         
-        new_messages_from_turn = []
+        final_messages = input_messages.copy()
         
         async for event in self.graph.astream_events(
             {"messages": input_messages},
@@ -244,20 +215,11 @@ class CodeCompassAgent:
             
             elif kind == "on_chain_end":
                 if "messages" in event["data"].get("output", {}):
-                    output_messages = event["data"]["output"]["messages"]
-                    new_messages_from_turn = output_messages[len(input_messages):]
-                    
-                    # Extract token count from final AI message
-                    if output_messages:
-                        last_msg = output_messages[-1]
-                        if hasattr(last_msg, "usage_metadata") and last_msg.usage_metadata:
-                            self.last_token_count = last_msg.usage_metadata.get("total_tokens", 0)
+                    final_messages = event["data"]["output"]["messages"]
+                    self.last_state = event["data"]["output"]  
         
         if self.use_memory:
-            self.messages.extend(new_messages_from_turn)
-            self.last_state = {"messages": self.messages}
-
-
+            self.messages = final_messages
     
     def reset(self):
         """Clear conversation history"""
@@ -281,10 +243,6 @@ class CodeCompassAgent:
             "messages": [
                 message_to_dict(m)
                 for m in self.last_state["messages"]
-            ],
-            "last_context_seen": [
-                message_to_dict(m)
-                for m in self.last_input_context
             ],
         }
 
