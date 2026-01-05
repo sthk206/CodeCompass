@@ -1,8 +1,17 @@
 from pathlib import Path
 import typer
+from rich import box
 from rich.console import Console
 from rich.markdown import Markdown
+from rich.align import Align
+from rich.panel import Panel
+from rich.text import Text
+from rich.rule import Rule
+
+from codecompass.indexing.store import CodeStore
 from codecompass.retrieval.search import baseline_search, hyde_search, query_expansion_search
+import asyncio
+
 
 app = typer.Typer(
     name="codecompass",
@@ -135,79 +144,210 @@ def ask(
     except Exception as e:
         console.print(f"[red]Error: {e}[/red]")
         raise typer.Exit(1)
-    
+
+def get_repo_path(path: str | None) -> Path:
+    """Resolve repository path."""
+    return Path(path).resolve() if path else Path.cwd()
 
 @app.command()
 def chat(
-    repo_path: Path = typer.Argument(
-        ".",
-        help="Path to the repository",
-        exists=True,
-    ),
-    search_type: int = typer.Option(
-        0,
-        "--stype", "-s",
-        help="Search strategy: 0=HyDE (default), 1=baseline, 2=query expansion"
-    ),
+    path: str = typer.Argument(None, help="Repository path"),
+    no_memory: bool = typer.Option(False, "--no-memory", help="Disable conversation memory"),
+    stream: bool = typer.Option(False, "--stream", help="Show agent's work in progress"),
+    debug: bool = typer.Option(False, "--debug", "-d", help="Enables debugging mode (print full system prompt + token usage)"),
 ):
-    """Start an interactive chat about the codebase."""
-    from codecompass.retrieval.rag import answer_question
-    from codecompass.indexing.store import CodeStore
+    """Start an interactive chat session."""
+    repo_path = get_repo_path(path)
     
-    repo_path = repo_path.resolve()
+    # Ensure indexed
     store = CodeStore(repo_path)
+    if store.get_stats().get("status") == "not_indexed":
+        console.print("[yellow]Repository not indexed. Indexing now...[/yellow]")
+        with console.status("[bold green]Indexing..."):
+            store.index()
+        console.print("[green]✓ Done[/green]\n")
     
-    # Check if indexed
-    if not store.is_indexed():
-        console.print(f"[yellow]Repository not indexed. Indexing now...[/yellow]")
-        from codecompass.indexing.store import index_repository
-        index_repository(repo_path)
+    # Create agent - pass memory flag
+    from codecompass.agent.graph import CodeCompassAgent
+    agent = CodeCompassAgent(repo_path, use_memory=not no_memory, debug=debug)
     
-    stats = store.get_stats()
-    
-    search_names = {0: "HyDE", 1: "Baseline", 2: "Query Expansion"}
-    
-    console.print("\n[bold green]╔═══════════════════════════════════════════════════════╗[/bold green]")
-    console.print("[bold green]║           Welcome to CodeCompass! 🧭                   ║[/bold green]")
-    console.print("[bold green]╚═══════════════════════════════════════════════════════╝[/bold green]")
+    console.print(Panel(
+        Align.center(Text("Welcome to CodeCompass! 🧭", style="bold green")),
+        border_style="green",
+        box=box.DOUBLE,
+    ))
     console.print(f"\n[dim]Repository:[/dim] {repo_path}")
-    console.print(f"[dim]Indexed chunks:[/dim] {stats.get('chunk_count', 'unknown')}")
-    console.print(f"[dim]Search strategy:[/dim] {search_names.get(search_type, 'HyDE')}")
-    console.print(f"\n[dim]Type 'exit' to quit, 'help' for commands.[/dim]\n")
+    console.print(f"[dim]Memory:[/dim] [cyan]{'enabled' if not no_memory else 'disabled'}[/cyan]")
+    console.print(f"[dim]Commands: '/clear', '/save', '/exit', '/help'.[/dim]\n")
+    console.print(Rule(characters="=", style="dim"))
+
+
+
+    state_path = repo_path / "state.json"
     
     while True:
         try:
-            question = console.input("[bold cyan]You:[/bold cyan] ").strip()
+            user_input = console.input("\n[bold blue]You:[/bold blue] ").strip()
             
-            if not question:
+            if not user_input:
                 continue
             
-            if question.lower() == "exit":
-                console.print("[dim]Goodbye![/dim]")
-                break
+            if user_input.startswith("/"):
+                if user_input in ("/exit", "/quit", "/q"):
+                    console.print("[dim]Goodbye![/dim]")
+                    break
+                elif user_input == "/clear":
+                    agent.reset()
+                    console.print("[dim]Conversation cleared.[/dim]")
+                    continue
+                elif user_input == "/save":
+                    try:
+                        agent.save_state(state_path)
+                        console.print(f"[dim]State saved to {state_path}[/dim]")
+                    except Exception as e:
+                        console.print(f"[yellow]Failed to save state: {e}[/yellow]")
+                    continue
+                elif user_input == "/help":
+                    console.print(Panel(
+                        "/clear - Clear conversation\n/save - Save Conversation\n/exit - Exit chat\n/help - Show help",
+                        title="Commands"
+                    ))
+                    continue
+                else:
+                    console.print(f"[yellow]Unknown command: {user_input}[/yellow]")
+                    continue
             
-            if question.lower() == "help":
-                console.print("""
-[bold]Commands:[/bold]
-  exit     - Quit the chat
-  help     - Show this help message
-
-[bold]Tips:[/bold]
-  • Ask about specific functions: "What does the login function do?"
-  • Ask about architecture: "How is authentication implemented?"
-  • Ask for explanations: "Explain the UserService class"
-""")
-                continue
-            
-            console.print("[dim]Thinking...[/dim]")
-            answer = answer_question(repo_path, question, search_type=search_type)
-            console.print(f"\n[bold green]CodeCompass:[/bold green]")
-            console.print(Markdown(answer))
             console.print()
+            
+            if stream:
+                console.print("[bold green]CodeCompass:\n[/bold green]")
+                
+                async def run_stream():
+                    async for event in agent.chat_stream_async(user_input):
+                        if event["type"] == "thinking":
+                            console.print("  [dim]💭 Thinking...\n[/dim]")
+                        elif event["type"] == "token":
+                            console.print(event["content"], end="")  # Token by token
+                        elif event["type"] == "tool_call":
+                            console.print(f"  [dim]🔧 Calling: {event['tool']}[/dim]")
+                        elif event["type"] == "tool_result":
+                            console.print(f"  [dim]📄 Got result[/dim]")
+                    console.print()  # Final newline
+                
+                asyncio.run(run_stream())
+            else:
+                with console.status("[bold green]Thinking..."):
+                    response = agent.chat(user_input)
+                console.print("[bold green]CodeCompass:[/bold green]")
+                console.print(Markdown(response))
             
         except KeyboardInterrupt:
             console.print("\n[dim]Goodbye![/dim]")
             break
+        except Exception as e:
+            console.print(f"[red]Error: {e}[/red]")
+
+
+@app.command()
+def diagram(
+    repo_path: Path = typer.Argument(
+        ".",
+        help="Path to the repository",
+        exists=True,
+        file_okay=False,
+        dir_okay=True,
+    ),
+    diagram_type: str = typer.Option(
+        "architecture",
+        "--type", "-t",
+        help="Type of diagram: architecture, dependency, flow, class",
+    ),
+    output: Path = typer.Option(
+        None,
+        "--output", "-o",
+        help="Output file path (default: {type}_diagram.md)",
+    ),
+    format: str = typer.Option(
+        "md",
+        "--format", "-f",
+        help="Output format: md (markdown) or mermaid (raw)",
+    ),
+    max_modules: int = typer.Option(
+        30,
+        "--max-modules", "-m",
+        help="Maximum modules to include",
+    ),
+    show_functions: bool = typer.Option(
+        False,
+        "--show-functions",
+        help="Show function names in architecture diagram",
+    ),
+):
+    """Generate a diagram of the codebase structure.
+    
+    Examples:
+    
+        codecompass diagram . --type architecture
+        
+        codecompass diagram ./myproject --type flow -o entrypoints.md
+        
+        codecompass diagram . --type class --max-modules 50
+    """
+    from codecompass.diagrams.generator import (
+        generate_architecture_diagram,
+        generate_dependency_diagram,
+        generate_flow_diagram,
+        generate_class_diagram,
+        save_diagram,
+    )
+    
+    repo_path = repo_path.resolve()
+    
+    # Default output filename
+    if output is None:
+        output = Path(f"{diagram_type}_diagram.md")
+    
+    console.print(f"[bold]Generating {diagram_type} diagram...[/bold]")
+    console.print(f"[dim]Repository: {repo_path}[/dim]")
+    
+    try:
+        # Generate appropriate diagram
+        if diagram_type == "architecture":
+            result = generate_architecture_diagram(
+                repo_path, 
+                max_modules=max_modules,
+                show_functions=show_functions,
+            )
+        elif diagram_type == "dependency":
+            result = generate_dependency_diagram(repo_path)
+        elif diagram_type == "flow":
+            result = generate_flow_diagram(repo_path)
+        elif diagram_type == "class":
+            result = generate_class_diagram(repo_path, max_classes=max_modules)
+        else:
+            console.print(f"[red]Unknown diagram type: {diagram_type}[/red]")
+            console.print("Available types: architecture, dependency, flow, class")
+            raise typer.Exit(1)
+        
+        # Save the diagram
+        saved_path = save_diagram(result, output, format=format)
+        
+        console.print(f"\n[green]✓ Diagram saved to: {saved_path}[/green]")
+        console.print(f"[dim]  Title: {result.title}[/dim]")
+        console.print(f"[dim]  Modules analyzed: {result.modules_analyzed}[/dim]")
+        
+        # Preview first few lines
+        console.print(f"\n[bold]Preview:[/bold]")
+        lines = result.mermaid_code.split("\n")[:10]
+        for line in lines:
+            console.print(f"  [cyan]{line}[/cyan]")
+        if len(result.mermaid_code.split("\n")) > 10:
+            console.print(f"  [dim]... ({len(result.mermaid_code.split(chr(10)))} total lines)[/dim]")
+        
+    except Exception as e:
+        console.print(f"[red]Error generating diagram: {e}[/red]")
+        raise typer.Exit(1)
+
 
 if __name__ == "__main__":
     app()
