@@ -22,8 +22,20 @@ def generate(prompt: str, system: str = None, temperature: float = 0.0, model: s
     return chat(messages, temperature, model)
 
 
+def truncate_middle(text: str, max_chars: int) -> str:
+    """Truncate middle of text, keeping head and tail."""
+    if len(text) <= max_chars:
+        return text
+    
+    head_chars = int(max_chars * 0.85)
+    tail_chars = max_chars - head_chars
+    
+    return text[:head_chars] + "\n\n... [truncated] ...\n\n" + text[-tail_chars:]
+
 def embed(text: str) -> list[float]:
     """Generate embedding with Ollama"""
+    if len(text) > settings.chunk_max_chars:
+        text = truncate_middle(text, settings.chunk_max_chars)
     response = ollama.embeddings(
         model = settings.embedding_model,
         prompt = text,

@@ -73,7 +73,7 @@ class FileStructureTool(BaseTool):
             connector = "└── " if is_last else "├── "
             
             if entry.is_dir():
-                lines.append(f"{prefix}{connector}{"📁 " if self.show_icons else ""}{entry.name}/")
+                lines.append(f"{prefix}{connector}{'📁 ' if self.show_icons else ''}{entry.name}/")
                 extension = "    " if is_last else "│   "
                 self._build_tree(entry, prefix + extension, depth + 1, max_depth, lines)
             else:
