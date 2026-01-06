@@ -23,7 +23,7 @@ def generate(prompt: str, system: str = None, temperature: float = 0.0, model: s
 
 
 def truncate_middle(text: str, max_chars: int) -> str:
-    """Truncate middle of text, keeping head and tail."""
+    """Truncate middle of text, keeping head and tail"""
     if len(text) <= max_chars:
         return text
     

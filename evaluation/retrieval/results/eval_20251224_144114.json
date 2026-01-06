@@ -1,0 +1,1734 @@
+{
+  "timestamp": "20251224_144114",
+  "repo_path": "/Users/c2/2025-2026/UoT/Personal Projects/CodeCompass",
+  "k": 5,
+  "results": {
+    "Baseline": {
+      "per_query": [
+        {
+          "query": "command line functions",
+          "recall_at_k": 0.4,
+          "precision_at_k": 0.4,
+          "mrr": 1.0,
+          "f1_at_k": 0.4000000000000001,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/cli.py::hello",
+            "src/codecompass/cli.py::search",
+            "tests/test_chunker.py::test_chunk_simple_function",
+            "src/codecompass/retrieval/rag.py::format_sources",
+            "src/codecompass/indexing/store.py::StoredChunk"
+          ],
+          "expected": [
+            "src/codecompass/cli.py::hello",
+            "src/codecompass/cli.py::index",
+            "src/codecompass/cli.py::search",
+            "src/codecompass/cli.py::status",
+            "src/codecompass/cli.py::chat"
+          ],
+          "hits": [
+            "src/codecompass/cli.py::hello",
+            "src/codecompass/cli.py::search"
+          ]
+        },
+        {
+          "query": "index a repository",
+          "recall_at_k": 0.6666666666666666,
+          "precision_at_k": 0.4,
+          "mrr": 1.0,
+          "f1_at_k": 0.5,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/store.py::index_repository",
+            "src/codecompass/cli.py::index",
+            "src/codecompass/indexing/store.py::CodeStore.is_indexed",
+            "src/codecompass/retrieval/search.py::search_code",
+            "src/codecompass/cli.py::status"
+          ],
+          "expected": [
+            "src/codecompass/cli.py::index",
+            "src/codecompass/indexing/store.py::index_repository",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks"
+          ],
+          "hits": [
+            "src/codecompass/indexing/store.py::index_repository",
+            "src/codecompass/cli.py::index"
+          ]
+        },
+        {
+          "query": "search code in repository",
+          "recall_at_k": 0.6666666666666666,
+          "precision_at_k": 0.4,
+          "mrr": 1.0,
+          "f1_at_k": 0.5,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/retrieval/search.py::search_code",
+            "src/codecompass/cli.py::search",
+            "tests/test_store.py::test_index_and_search",
+            "src/codecompass/indexing/store.py::index_repository",
+            "src/codecompass/indexing/store.py::CodeStore"
+          ],
+          "expected": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/retrieval/search.py::search_code",
+            "src/codecompass/indexing/store.py::CodeStore.search"
+          ],
+          "hits": [
+            "src/codecompass/retrieval/search.py::search_code",
+            "src/codecompass/cli.py::search"
+          ]
+        },
+        {
+          "query": "interactive chat with codebase",
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr": 0.0,
+          "f1_at_k": 0.0,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/llm/ollama.py::generate",
+            "src/codecompass/config.py::Settings",
+            "tests/test_ollama.py::test_generate_hello",
+            "src/codecompass/indexing/store.py::StoredChunk",
+            "src/codecompass/cli.py::search"
+          ],
+          "expected": [
+            "src/codecompass/cli.py::chat",
+            "src/codecompass/retrieval/rag.py::answer_question"
+          ],
+          "hits": []
+        },
+        {
+          "query": "how are embeddings generated",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.4,
+          "mrr": 1.0,
+          "f1_at_k": 0.5714285714285715,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/llm/ollama.py::embed",
+            "src/codecompass/llm/ollama.py::embed_batch",
+            "tests/test_ollama.py::test_generate_hello",
+            "src/codecompass/llm/ollama.py::generate",
+            "tests/test_ollama.py::test_embed_length"
+          ],
+          "expected": [
+            "src/codecompass/llm/ollama.py::embed",
+            "src/codecompass/llm/ollama.py::embed_batch"
+          ],
+          "hits": [
+            "src/codecompass/llm/ollama.py::embed",
+            "src/codecompass/llm/ollama.py::embed_batch"
+          ]
+        },
+        {
+          "query": "parse Python abstract syntax tree",
+          "recall_at_k": 0.6666666666666666,
+          "precision_at_k": 0.4,
+          "mrr": 1.0,
+          "f1_at_k": 0.5,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file",
+            "src/codecompass/indexing/chunker.py::PythonChunker.__init__",
+            "src/codecompass/indexing/chunker.py::PythonChunker._make_chunk",
+            "src/codecompass/indexing/chunker.py::chunk_repository"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_chunks",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file"
+          ],
+          "hits": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file"
+          ]
+        },
+        {
+          "query": "vector database storage",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.6,
+          "mrr": 1.0,
+          "f1_at_k": 0.7499999999999999,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/indexing/store.py::StoredChunk",
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/indexing/store.py::CodeStore._get_db_path"
+          ],
+          "expected": [
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks"
+          ],
+          "hits": [
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/indexing/store.py::CodeStore.search"
+          ]
+        },
+        {
+          "query": "RAG retrieval augmented generation",
+          "recall_at_k": 0.5,
+          "precision_at_k": 0.2,
+          "mrr": 0.3333333333333333,
+          "f1_at_k": 0.28571428571428575,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/llm/ollama.py::generate",
+            "src/codecompass/retrieval/rag.py::answer_question",
+            "src/codecompass/indexing/store.py::CodeStore._create_search_text",
+            "src/codecompass/indexing/store.py::CodeStore.search"
+          ],
+          "expected": [
+            "src/codecompass/retrieval/rag.py::answer_question",
+            "src/codecompass/retrieval/search.py::search_code"
+          ],
+          "hits": [
+            "src/codecompass/retrieval/rag.py::answer_question"
+          ]
+        },
+        {
+          "query": "extract functions from source code",
+          "recall_at_k": 0.3333333333333333,
+          "precision_at_k": 0.2,
+          "mrr": 0.5,
+          "f1_at_k": 0.25,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_docstring",
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_chunks",
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_imports",
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/retrieval/rag.py::format_sources"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_chunks",
+            "src/codecompass/indexing/chunker.py::PythonChunker._make_chunk",
+            "src/codecompass/indexing/chunker.py::chunk_repository"
+          ],
+          "hits": [
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_chunks"
+          ]
+        },
+        {
+          "query": "CodeStore class",
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr": 0.0,
+          "f1_at_k": 0.0,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/retrieval/search.py::SearchResult",
+            "src/codecompass/indexing/store.py::StoredChunk",
+            "src/codecompass/indexing/store.py::CodeStore._create_search_text",
+            "src/codecompass/config.py::Settings",
+            "src/codecompass/indexing/store.py::CodeStore.is_indexed"
+          ],
+          "expected": [
+            "src/codecompass/indexing/store.py::CodeStore"
+          ],
+          "hits": []
+        },
+        {
+          "query": "PythonChunker",
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr": 0.0,
+          "f1_at_k": 0.0,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/llm/ollama.py::embed",
+            "tests/test_chunker.py::test_chunk_simple_function",
+            "src/codecompass/cli.py::hello",
+            "src/codecompass/indexing/chunker.py::PythonChunker.__init__",
+            "tests/test_ollama.py::test_generate_hello"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::PythonChunker"
+          ],
+          "hits": []
+        },
+        {
+          "query": "generate LLM response",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 1.0,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/llm/ollama.py::generate",
+            "tests/test_ollama.py::test_generate_hello",
+            "src/codecompass/retrieval/rag.py::answer_question",
+            "src/codecompass/llm/ollama.py::embed",
+            "src/codecompass/cli.py::search"
+          ],
+          "expected": [
+            "src/codecompass/llm/ollama.py::generate"
+          ],
+          "hits": [
+            "src/codecompass/llm/ollama.py::generate"
+          ]
+        },
+        {
+          "query": "CodeChunk dataclass",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 1.0,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::CodeChunk",
+            "src/codecompass/indexing/chunker.py::PythonChunker.__init__",
+            "src/codecompass/retrieval/search.py::SearchResult",
+            "src/codecompass/indexing/chunker.py::PythonChunker._make_chunk",
+            "src/codecompass/indexing/store.py::StoredChunk"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::CodeChunk"
+          ],
+          "hits": [
+            "src/codecompass/indexing/chunker.py::CodeChunk"
+          ]
+        },
+        {
+          "query": "where is search_text created",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 1.0,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/store.py::CodeStore._create_search_text",
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/cli.py::search",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/retrieval/rag.py::format_sources"
+          ],
+          "expected": [
+            "src/codecompass/indexing/store.py::CodeStore._create_search_text"
+          ],
+          "hits": [
+            "src/codecompass/indexing/store.py::CodeStore._create_search_text"
+          ]
+        },
+        {
+          "query": "docstring extraction",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 1.0,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_docstring",
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_imports",
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/cli.py::search",
+            "src/codecompass/indexing/chunker.py::PythonChunker._make_chunk"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_docstring"
+          ],
+          "hits": [
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_docstring"
+          ]
+        },
+        {
+          "query": "configuration settings",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 1.0,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/config.py::Settings",
+            "src/codecompass/llm/ollama.py::embed",
+            "src/codecompass/config.py::ConfigDict",
+            "src/codecompass/llm/ollama.py::generate",
+            "src/codecompass/indexing/store.py::CodeStore"
+          ],
+          "expected": [
+            "src/codecompass/config.py::Settings"
+          ],
+          "hits": [
+            "src/codecompass/config.py::Settings"
+          ]
+        },
+        {
+          "query": "I want to parse Python files",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.6,
+          "mrr": 1.0,
+          "f1_at_k": 0.7499999999999999,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file",
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::chunk_repository",
+            "src/codecompass/retrieval/rag.py::answer_question",
+            "src/codecompass/cli.py::search"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file",
+            "src/codecompass/indexing/chunker.py::chunk_repository"
+          ],
+          "hits": [
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file",
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::chunk_repository"
+          ]
+        },
+        {
+          "query": "how do I ask questions about my code",
+          "recall_at_k": 0.5,
+          "precision_at_k": 0.2,
+          "mrr": 1.0,
+          "f1_at_k": 0.28571428571428575,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/retrieval/rag.py::answer_question",
+            "src/codecompass/retrieval/search.py::search_code",
+            "src/codecompass/indexing/chunker.py::PythonChunker._make_chunk",
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/retrieval/search.py::SearchResult.format"
+          ],
+          "expected": [
+            "src/codecompass/cli.py::chat",
+            "src/codecompass/retrieval/rag.py::answer_question"
+          ],
+          "hits": [
+            "src/codecompass/retrieval/rag.py::answer_question"
+          ]
+        },
+        {
+          "query": "save code chunks to database",
+          "recall_at_k": 0.5,
+          "precision_at_k": 0.2,
+          "mrr": 0.5,
+          "f1_at_k": 0.28571428571428575,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/store.py::CodeStore._save_metadata",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/indexing/store.py::StoredChunk",
+            "src/codecompass/indexing/store.py::CodeStore._get_db_path"
+          ],
+          "expected": [
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/indexing/store.py::index_repository"
+          ],
+          "hits": [
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks"
+          ]
+        }
+      ],
+      "avg_recall_at_k": 0.643859649122807,
+      "avg_precision_at_k": 0.2631578947368421,
+      "avg_mrr": 0.7543859649122807,
+      "avg_f1_at_k": 0.3550125313283208,
+      "num_queries": 19,
+      "k": 5
+    },
+    "Query Expansion": {
+      "per_query": [
+        {
+          "query": "command line functions",
+          "recall_at_k": 0.8,
+          "precision_at_k": 0.8,
+          "mrr": 1.0,
+          "f1_at_k": 0.8000000000000002,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/cli.py::hello",
+            "src/codecompass/cli.py::index",
+            "src/codecompass/cli.py::status",
+            "src/codecompass/indexing/store.py::StoredChunk"
+          ],
+          "expected": [
+            "src/codecompass/cli.py::hello",
+            "src/codecompass/cli.py::index",
+            "src/codecompass/cli.py::search",
+            "src/codecompass/cli.py::status",
+            "src/codecompass/cli.py::chat"
+          ],
+          "hits": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/cli.py::hello",
+            "src/codecompass/cli.py::index",
+            "src/codecompass/cli.py::status"
+          ]
+        },
+        {
+          "query": "index a repository",
+          "recall_at_k": 0.6666666666666666,
+          "precision_at_k": 0.4,
+          "mrr": 1.0,
+          "f1_at_k": 0.5,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/store.py::index_repository",
+            "src/codecompass/cli.py::index",
+            "src/codecompass/indexing/chunker.py::chunk_repository",
+            "src/codecompass/retrieval/rag.py::answer_question",
+            "tests/test_store.py::test_index_and_search"
+          ],
+          "expected": [
+            "src/codecompass/cli.py::index",
+            "src/codecompass/indexing/store.py::index_repository",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks"
+          ],
+          "hits": [
+            "src/codecompass/indexing/store.py::index_repository",
+            "src/codecompass/cli.py::index"
+          ]
+        },
+        {
+          "query": "search code in repository",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.6,
+          "mrr": 1.0,
+          "f1_at_k": 0.7499999999999999,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/retrieval/search.py::search_code",
+            "tests/test_store.py::test_index_and_search",
+            "src/codecompass/cli.py::search",
+            "src/codecompass/indexing/chunker.py::chunk_repository",
+            "src/codecompass/indexing/store.py::CodeStore.search"
+          ],
+          "expected": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/retrieval/search.py::search_code",
+            "src/codecompass/indexing/store.py::CodeStore.search"
+          ],
+          "hits": [
+            "src/codecompass/retrieval/search.py::search_code",
+            "src/codecompass/cli.py::search",
+            "src/codecompass/indexing/store.py::CodeStore.search"
+          ]
+        },
+        {
+          "query": "interactive chat with codebase",
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr": 0.0,
+          "f1_at_k": 0.0,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/config.py::Settings",
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/cli.py::search",
+            "src/codecompass/llm/ollama.py::generate",
+            "src/codecompass/indexing/store.py::StoredChunk"
+          ],
+          "expected": [
+            "src/codecompass/cli.py::chat",
+            "src/codecompass/retrieval/rag.py::answer_question"
+          ],
+          "hits": []
+        },
+        {
+          "query": "how are embeddings generated",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.4,
+          "mrr": 1.0,
+          "f1_at_k": 0.5714285714285715,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/llm/ollama.py::embed",
+            "src/codecompass/llm/ollama.py::embed_batch",
+            "src/codecompass/config.py::Settings",
+            "tests/test_ollama.py::test_embed_length",
+            "src/codecompass/llm/ollama.py::generate"
+          ],
+          "expected": [
+            "src/codecompass/llm/ollama.py::embed",
+            "src/codecompass/llm/ollama.py::embed_batch"
+          ],
+          "hits": [
+            "src/codecompass/llm/ollama.py::embed",
+            "src/codecompass/llm/ollama.py::embed_batch"
+          ]
+        },
+        {
+          "query": "parse Python abstract syntax tree",
+          "recall_at_k": 0.6666666666666666,
+          "precision_at_k": 0.4,
+          "mrr": 1.0,
+          "f1_at_k": 0.5,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker._make_chunk",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file",
+            "src/codecompass/indexing/chunker.py::CodeChunk",
+            "src/codecompass/indexing/chunker.py::chunk_repository"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_chunks",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file"
+          ],
+          "hits": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file"
+          ]
+        },
+        {
+          "query": "vector database storage",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.6,
+          "mrr": 1.0,
+          "f1_at_k": 0.7499999999999999,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/config.py::Settings",
+            "src/codecompass/indexing/store.py::StoredChunk"
+          ],
+          "expected": [
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks"
+          ],
+          "hits": [
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks"
+          ]
+        },
+        {
+          "query": "RAG retrieval augmented generation",
+          "recall_at_k": 0.5,
+          "precision_at_k": 0.2,
+          "mrr": 0.25,
+          "f1_at_k": 0.28571428571428575,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/cli.py::search",
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/retrieval/rag.py::answer_question",
+            "src/codecompass/llm/ollama.py::generate"
+          ],
+          "expected": [
+            "src/codecompass/retrieval/rag.py::answer_question",
+            "src/codecompass/retrieval/search.py::search_code"
+          ],
+          "hits": [
+            "src/codecompass/retrieval/rag.py::answer_question"
+          ]
+        },
+        {
+          "query": "extract functions from source code",
+          "recall_at_k": 0.3333333333333333,
+          "precision_at_k": 0.2,
+          "mrr": 0.25,
+          "f1_at_k": 0.25,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_docstring",
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/cli.py::search",
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_chunks",
+            "src/codecompass/retrieval/rag.py::format_sources"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_chunks",
+            "src/codecompass/indexing/chunker.py::PythonChunker._make_chunk",
+            "src/codecompass/indexing/chunker.py::chunk_repository"
+          ],
+          "hits": [
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_chunks"
+          ]
+        },
+        {
+          "query": "CodeStore class",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 1.0,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/store.py::CodeStore",
+            "tests/test_store.py::test_index_and_search",
+            "src/codecompass/indexing/store.py::StoredChunk",
+            "src/codecompass/indexing/store.py::CodeStore._get_db_path",
+            "src/codecompass/retrieval/search.py::search_code"
+          ],
+          "expected": [
+            "src/codecompass/indexing/store.py::CodeStore"
+          ],
+          "hits": [
+            "src/codecompass/indexing/store.py::CodeStore"
+          ]
+        },
+        {
+          "query": "PythonChunker",
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr": 0.0,
+          "f1_at_k": 0.0,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/indexing/chunker.py::PythonChunker.__init__",
+            "src/codecompass/indexing/store.py::CodeStore",
+            "tests/test_ollama.py::test_generate_hello",
+            "tests/test_chunker.py::test_chunk_class_with_methods"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::PythonChunker"
+          ],
+          "hits": []
+        },
+        {
+          "query": "generate LLM response",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 1.0,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/llm/ollama.py::generate",
+            "src/codecompass/llm/ollama.py::embed",
+            "tests/test_ollama.py::test_generate_hello",
+            "src/codecompass/config.py::Settings",
+            "src/codecompass/cli.py::search"
+          ],
+          "expected": [
+            "src/codecompass/llm/ollama.py::generate"
+          ],
+          "hits": [
+            "src/codecompass/llm/ollama.py::generate"
+          ]
+        },
+        {
+          "query": "CodeChunk dataclass",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 1.0,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::CodeChunk",
+            "src/codecompass/retrieval/search.py::SearchResult",
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_chunks",
+            "src/codecompass/indexing/store.py::StoredChunk",
+            "src/codecompass/indexing/chunker.py::PythonChunker"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::CodeChunk"
+          ],
+          "hits": [
+            "src/codecompass/indexing/chunker.py::CodeChunk"
+          ]
+        },
+        {
+          "query": "where is search_text created",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 0.25,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "tests/test_store.py::test_index_and_search",
+            "src/codecompass/indexing/store.py::CodeStore._create_search_text",
+            "src/codecompass/indexing/store.py::CodeStore"
+          ],
+          "expected": [
+            "src/codecompass/indexing/store.py::CodeStore._create_search_text"
+          ],
+          "hits": [
+            "src/codecompass/indexing/store.py::CodeStore._create_search_text"
+          ]
+        },
+        {
+          "query": "docstring extraction",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 1.0,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_docstring",
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/cli.py::search",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file",
+            "src/codecompass/retrieval/search.py::search_code"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_docstring"
+          ],
+          "hits": [
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_docstring"
+          ]
+        },
+        {
+          "query": "configuration settings",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 1.0,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/config.py::Settings",
+            "src/codecompass/indexing/store.py::CodeStore.table",
+            "src/codecompass/config.py::ConfigDict",
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/indexing/store.py::CodeStore.__init__"
+          ],
+          "expected": [
+            "src/codecompass/config.py::Settings"
+          ],
+          "hits": [
+            "src/codecompass/config.py::Settings"
+          ]
+        },
+        {
+          "query": "I want to parse Python files",
+          "recall_at_k": 0.6666666666666666,
+          "precision_at_k": 0.4,
+          "mrr": 1.0,
+          "f1_at_k": 0.5,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file",
+            "src/codecompass/retrieval/search.py::search_code",
+            "src/codecompass/indexing/chunker.py::PythonChunker._make_chunk",
+            "src/codecompass/cli.py::search"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file",
+            "src/codecompass/indexing/chunker.py::chunk_repository"
+          ],
+          "hits": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file"
+          ]
+        },
+        {
+          "query": "how do I ask questions about my code",
+          "recall_at_k": 0.5,
+          "precision_at_k": 0.2,
+          "mrr": 1.0,
+          "f1_at_k": 0.28571428571428575,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/retrieval/rag.py::answer_question",
+            "tests/test_ollama.py::test_generate_hello",
+            "src/codecompass/llm/ollama.py::generate",
+            "tests/test_store.py::test_index_and_search",
+            "src/codecompass/cli.py::index"
+          ],
+          "expected": [
+            "src/codecompass/cli.py::chat",
+            "src/codecompass/retrieval/rag.py::answer_question"
+          ],
+          "hits": [
+            "src/codecompass/retrieval/rag.py::answer_question"
+          ]
+        },
+        {
+          "query": "save code chunks to database",
+          "recall_at_k": 0.5,
+          "precision_at_k": 0.2,
+          "mrr": 0.25,
+          "f1_at_k": 0.28571428571428575,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/indexing/store.py::CodeStore._save_metadata",
+            "src/codecompass/indexing/store.py::StoredChunk",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/indexing/store.py::CodeStore._get_db_path"
+          ],
+          "expected": [
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/indexing/store.py::index_repository"
+          ],
+          "hits": [
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks"
+          ]
+        }
+      ],
+      "avg_recall_at_k": 0.7175438596491228,
+      "avg_precision_at_k": 0.2947368421052632,
+      "avg_mrr": 0.7368421052631579,
+      "avg_f1_at_k": 0.39360902255639096,
+      "num_queries": 19,
+      "k": 5
+    },
+    "Query Expansion with Context": {
+      "per_query": [
+        {
+          "query": "command line functions",
+          "recall_at_k": 0.8,
+          "precision_at_k": 0.8,
+          "mrr": 1.0,
+          "f1_at_k": 0.8000000000000002,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/cli.py::hello",
+            "src/codecompass/cli.py::status",
+            "src/codecompass/cli.py::index",
+            "src/codecompass/indexing/chunker.py::PythonChunker.__init__"
+          ],
+          "expected": [
+            "src/codecompass/cli.py::hello",
+            "src/codecompass/cli.py::index",
+            "src/codecompass/cli.py::search",
+            "src/codecompass/cli.py::status",
+            "src/codecompass/cli.py::chat"
+          ],
+          "hits": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/cli.py::hello",
+            "src/codecompass/cli.py::status",
+            "src/codecompass/cli.py::index"
+          ]
+        },
+        {
+          "query": "index a repository",
+          "recall_at_k": 0.3333333333333333,
+          "precision_at_k": 0.2,
+          "mrr": 0.3333333333333333,
+          "f1_at_k": 0.25,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/store.py::CodeStore._get_db_path",
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/indexing/store.py::index_repository",
+            "src/codecompass/config.py::Settings",
+            "src/codecompass/indexing/store.py::CodeStore.is_indexed"
+          ],
+          "expected": [
+            "src/codecompass/cli.py::index",
+            "src/codecompass/indexing/store.py::index_repository",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks"
+          ],
+          "hits": [
+            "src/codecompass/indexing/store.py::index_repository"
+          ]
+        },
+        {
+          "query": "search code in repository",
+          "recall_at_k": 0.6666666666666666,
+          "precision_at_k": 0.4,
+          "mrr": 1.0,
+          "f1_at_k": 0.5,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/indexing/store.py::StoredChunk",
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/config.py::Settings"
+          ],
+          "expected": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/retrieval/search.py::search_code",
+            "src/codecompass/indexing/store.py::CodeStore.search"
+          ],
+          "hits": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/indexing/store.py::CodeStore.search"
+          ]
+        },
+        {
+          "query": "interactive chat with codebase",
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr": 0.0,
+          "f1_at_k": 0.0,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/indexing/store.py::StoredChunk",
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/config.py::Settings"
+          ],
+          "expected": [
+            "src/codecompass/cli.py::chat",
+            "src/codecompass/retrieval/rag.py::answer_question"
+          ],
+          "hits": []
+        },
+        {
+          "query": "how are embeddings generated",
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr": 0.0,
+          "f1_at_k": 0.0,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/indexing/store.py::StoredChunk",
+            "src/codecompass/config.py::Settings",
+            "src/codecompass/indexing/store.py::CodeStore"
+          ],
+          "expected": [
+            "src/codecompass/llm/ollama.py::embed",
+            "src/codecompass/llm/ollama.py::embed_batch"
+          ],
+          "hits": []
+        },
+        {
+          "query": "parse Python abstract syntax tree",
+          "recall_at_k": 0.6666666666666666,
+          "precision_at_k": 0.4,
+          "mrr": 0.5,
+          "f1_at_k": 0.5,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::PythonChunker.__init__",
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file",
+            "src/codecompass/indexing/chunker.py::CodeChunk",
+            "src/codecompass/indexing/chunker.py::PythonChunker._make_chunk"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_chunks",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file"
+          ],
+          "hits": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file"
+          ]
+        },
+        {
+          "query": "vector database storage",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.6,
+          "mrr": 0.5,
+          "f1_at_k": 0.7499999999999999,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/store.py::StoredChunk",
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/indexing/store.py::CodeStore._get_db_path",
+            "src/codecompass/indexing/store.py::CodeStore.search"
+          ],
+          "expected": [
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks"
+          ],
+          "hits": [
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/indexing/store.py::CodeStore.search"
+          ]
+        },
+        {
+          "query": "RAG retrieval augmented generation",
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr": 0.0,
+          "f1_at_k": 0.0,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/indexing/chunker.py::CodeChunk",
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/indexing/store.py::CodeStore._get_db_path",
+            "src/codecompass/indexing/store.py::StoredChunk"
+          ],
+          "expected": [
+            "src/codecompass/retrieval/rag.py::answer_question",
+            "src/codecompass/retrieval/search.py::search_code"
+          ],
+          "hits": []
+        },
+        {
+          "query": "extract functions from source code",
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr": 0.0,
+          "f1_at_k": 0.0,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_docstring",
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_imports",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_chunks",
+            "src/codecompass/indexing/chunker.py::PythonChunker._make_chunk",
+            "src/codecompass/indexing/chunker.py::chunk_repository"
+          ],
+          "hits": []
+        },
+        {
+          "query": "CodeStore class",
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr": 0.0,
+          "f1_at_k": 0.0,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::PythonChunker.__init__",
+            "src/codecompass/indexing/store.py::CodeStore.__init__",
+            "src/codecompass/config.py::Settings",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/indexing/chunker.py::CodeChunk"
+          ],
+          "expected": [
+            "src/codecompass/indexing/store.py::CodeStore"
+          ],
+          "hits": []
+        },
+        {
+          "query": "PythonChunker",
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr": 0.0,
+          "f1_at_k": 0.0,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/config.py::Settings",
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/indexing/store.py::StoredChunk",
+            "src/codecompass/indexing/chunker.py::PythonChunker.__init__"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::PythonChunker"
+          ],
+          "hits": []
+        },
+        {
+          "query": "generate LLM response",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 1.0,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/llm/ollama.py::generate",
+            "tests/test_ollama.py::test_generate_hello",
+            "src/codecompass/indexing/store.py::CodeStore._get_db_path",
+            "src/codecompass/config.py::Settings",
+            "src/codecompass/indexing/chunker.py::PythonChunker.__init__"
+          ],
+          "expected": [
+            "src/codecompass/llm/ollama.py::generate"
+          ],
+          "hits": [
+            "src/codecompass/llm/ollama.py::generate"
+          ]
+        },
+        {
+          "query": "CodeChunk dataclass",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 1.0,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::CodeChunk",
+            "src/codecompass/config.py::Settings",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/indexing/chunker.py::PythonChunker.__init__",
+            "src/codecompass/indexing/chunker.py::chunk_repository"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::CodeChunk"
+          ],
+          "hits": [
+            "src/codecompass/indexing/chunker.py::CodeChunk"
+          ]
+        },
+        {
+          "query": "where is search_text created",
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr": 0.0,
+          "f1_at_k": 0.0,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/indexing/store.py::StoredChunk",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/indexing/store.py::CodeStore.__init__"
+          ],
+          "expected": [
+            "src/codecompass/indexing/store.py::CodeStore._create_search_text"
+          ],
+          "hits": []
+        },
+        {
+          "query": "docstring extraction",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 1.0,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_docstring",
+            "src/codecompass/indexing/chunker.py::CodeChunk",
+            "src/codecompass/indexing/store.py::StoredChunk",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/cli.py::search"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_docstring"
+          ],
+          "hits": [
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_docstring"
+          ]
+        },
+        {
+          "query": "configuration settings",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 0.25,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/store.py::CodeStore.__init__",
+            "src/codecompass/indexing/store.py::CodeStore.table",
+            "src/codecompass/indexing/store.py::StoredChunk",
+            "src/codecompass/config.py::Settings",
+            "src/codecompass/indexing/store.py::CodeStore"
+          ],
+          "expected": [
+            "src/codecompass/config.py::Settings"
+          ],
+          "hits": [
+            "src/codecompass/config.py::Settings"
+          ]
+        },
+        {
+          "query": "I want to parse Python files",
+          "recall_at_k": 0.6666666666666666,
+          "precision_at_k": 0.4,
+          "mrr": 1.0,
+          "f1_at_k": 0.5,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file",
+            "src/codecompass/indexing/store.py::StoredChunk",
+            "src/codecompass/config.py::Settings",
+            "src/codecompass/indexing/chunker.py::PythonChunker.__init__"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file",
+            "src/codecompass/indexing/chunker.py::chunk_repository"
+          ],
+          "hits": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file"
+          ]
+        },
+        {
+          "query": "how do I ask questions about my code",
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr": 0.0,
+          "f1_at_k": 0.0,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/retrieval/search.py::search_code",
+            "src/codecompass/cli.py::search",
+            "tests/test_store.py::test_index_and_search",
+            "src/codecompass/indexing/store.py::StoredChunk"
+          ],
+          "expected": [
+            "src/codecompass/cli.py::chat",
+            "src/codecompass/retrieval/rag.py::answer_question"
+          ],
+          "hits": []
+        },
+        {
+          "query": "save code chunks to database",
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr": 0.0,
+          "f1_at_k": 0.0,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/store.py::CodeStore._save_metadata",
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/indexing/store.py::StoredChunk",
+            "src/codecompass/indexing/store.py::CodeStore._get_db_path",
+            "src/codecompass/indexing/store.py::CodeStore.__init__"
+          ],
+          "expected": [
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/indexing/store.py::index_repository"
+          ],
+          "hits": []
+        }
+      ],
+      "avg_recall_at_k": 0.4280701754385965,
+      "avg_precision_at_k": 0.18947368421052632,
+      "avg_mrr": 0.3991228070175438,
+      "avg_f1_at_k": 0.24385964912280703,
+      "num_queries": 19,
+      "k": 5
+    },
+    "HyDE": {
+      "per_query": [
+        {
+          "query": "command line functions",
+          "recall_at_k": 0.6,
+          "precision_at_k": 0.6,
+          "mrr": 0.3333333333333333,
+          "f1_at_k": 0.6,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file",
+            "src/codecompass/cli.py::search",
+            "src/codecompass/cli.py::hello",
+            "src/codecompass/cli.py::index"
+          ],
+          "expected": [
+            "src/codecompass/cli.py::hello",
+            "src/codecompass/cli.py::index",
+            "src/codecompass/cli.py::search",
+            "src/codecompass/cli.py::status",
+            "src/codecompass/cli.py::chat"
+          ],
+          "hits": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/cli.py::hello",
+            "src/codecompass/cli.py::index"
+          ]
+        },
+        {
+          "query": "index a repository",
+          "recall_at_k": 0.6666666666666666,
+          "precision_at_k": 0.4,
+          "mrr": 1.0,
+          "f1_at_k": 0.5,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/cli.py::index",
+            "src/codecompass/indexing/store.py::index_repository",
+            "tests/test_store.py::test_index_and_search",
+            "src/codecompass/indexing/chunker.py::chunk_repository",
+            "src/codecompass/retrieval/search.py::search_code"
+          ],
+          "expected": [
+            "src/codecompass/cli.py::index",
+            "src/codecompass/indexing/store.py::index_repository",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks"
+          ],
+          "hits": [
+            "src/codecompass/cli.py::index",
+            "src/codecompass/indexing/store.py::index_repository"
+          ]
+        },
+        {
+          "query": "search code in repository",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.6,
+          "mrr": 1.0,
+          "f1_at_k": 0.7499999999999999,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/retrieval/search.py::search_code",
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/retrieval/rag.py::answer_question"
+          ],
+          "expected": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/retrieval/search.py::search_code",
+            "src/codecompass/indexing/store.py::CodeStore.search"
+          ],
+          "hits": [
+            "src/codecompass/cli.py::search",
+            "src/codecompass/retrieval/search.py::search_code",
+            "src/codecompass/indexing/store.py::CodeStore.search"
+          ]
+        },
+        {
+          "query": "interactive chat with codebase",
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr": 0.0,
+          "f1_at_k": 0.0,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/llm/ollama.py::generate",
+            "src/codecompass/cli.py::search",
+            "tests/test_ollama.py::test_generate_hello",
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/retrieval/search.py::SearchResult.format"
+          ],
+          "expected": [
+            "src/codecompass/cli.py::chat",
+            "src/codecompass/retrieval/rag.py::answer_question"
+          ],
+          "hits": []
+        },
+        {
+          "query": "how are embeddings generated",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.4,
+          "mrr": 1.0,
+          "f1_at_k": 0.5714285714285715,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/llm/ollama.py::embed",
+            "src/codecompass/llm/ollama.py::embed_batch",
+            "src/codecompass/cli.py::search",
+            "src/codecompass/llm/ollama.py::generate",
+            "src/codecompass/config.py::Settings"
+          ],
+          "expected": [
+            "src/codecompass/llm/ollama.py::embed",
+            "src/codecompass/llm/ollama.py::embed_batch"
+          ],
+          "hits": [
+            "src/codecompass/llm/ollama.py::embed",
+            "src/codecompass/llm/ollama.py::embed_batch"
+          ]
+        },
+        {
+          "query": "parse Python abstract syntax tree",
+          "recall_at_k": 0.6666666666666666,
+          "precision_at_k": 0.4,
+          "mrr": 1.0,
+          "f1_at_k": 0.5,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file",
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_imports",
+            "src/codecompass/indexing/chunker.py::CodeChunk",
+            "src/codecompass/indexing/chunker.py::PythonChunker._make_chunk"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_chunks",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file"
+          ],
+          "hits": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file"
+          ]
+        },
+        {
+          "query": "vector database storage",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.6,
+          "mrr": 1.0,
+          "f1_at_k": 0.7499999999999999,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/indexing/store.py::StoredChunk",
+            "src/codecompass/cli.py::search"
+          ],
+          "expected": [
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks"
+          ],
+          "hits": [
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks"
+          ]
+        },
+        {
+          "query": "RAG retrieval augmented generation",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.4,
+          "mrr": 0.3333333333333333,
+          "f1_at_k": 0.5714285714285715,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/cli.py::search",
+            "src/codecompass/retrieval/search.py::search_code",
+            "src/codecompass/indexing/store.py::CodeStore._create_search_text",
+            "src/codecompass/retrieval/rag.py::answer_question"
+          ],
+          "expected": [
+            "src/codecompass/retrieval/rag.py::answer_question",
+            "src/codecompass/retrieval/search.py::search_code"
+          ],
+          "hits": [
+            "src/codecompass/retrieval/search.py::search_code",
+            "src/codecompass/retrieval/rag.py::answer_question"
+          ]
+        },
+        {
+          "query": "extract functions from source code",
+          "recall_at_k": 0.3333333333333333,
+          "precision_at_k": 0.2,
+          "mrr": 0.5,
+          "f1_at_k": 0.25,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_chunks",
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_docstring",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file",
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_imports"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_chunks",
+            "src/codecompass/indexing/chunker.py::PythonChunker._make_chunk",
+            "src/codecompass/indexing/chunker.py::chunk_repository"
+          ],
+          "hits": [
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_chunks"
+          ]
+        },
+        {
+          "query": "CodeStore class",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 0.5,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/store.py::CodeStore.__init__",
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/indexing/chunker.py::PythonChunker.__init__",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/indexing/store.py::StoredChunk"
+          ],
+          "expected": [
+            "src/codecompass/indexing/store.py::CodeStore"
+          ],
+          "hits": [
+            "src/codecompass/indexing/store.py::CodeStore"
+          ]
+        },
+        {
+          "query": "PythonChunker",
+          "recall_at_k": 0.0,
+          "precision_at_k": 0.0,
+          "mrr": 0.0,
+          "f1_at_k": 0.0,
+          "k": 5,
+          "retrieved": [
+            "tests/test_chunker.py::test_chunk_simple_function",
+            "tests/test_chunker.py::test_chunk_class_with_methods",
+            "src/codecompass/indexing/store.py::CodeStore._create_search_text",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::PythonChunker"
+          ],
+          "hits": []
+        },
+        {
+          "query": "generate LLM response",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 1.0,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/llm/ollama.py::generate",
+            "tests/test_ollama.py::test_generate_hello",
+            "src/codecompass/cli.py::search",
+            "src/codecompass/retrieval/rag.py::answer_question",
+            "src/codecompass/llm/ollama.py::embed"
+          ],
+          "expected": [
+            "src/codecompass/llm/ollama.py::generate"
+          ],
+          "hits": [
+            "src/codecompass/llm/ollama.py::generate"
+          ]
+        },
+        {
+          "query": "CodeChunk dataclass",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 1.0,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::CodeChunk",
+            "src/codecompass/retrieval/search.py::SearchResult",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file",
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/store.py::StoredChunk"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::CodeChunk"
+          ],
+          "hits": [
+            "src/codecompass/indexing/chunker.py::CodeChunk"
+          ]
+        },
+        {
+          "query": "where is search_text created",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 1.0,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/store.py::CodeStore._create_search_text",
+            "src/codecompass/indexing/store.py::CodeStore.search",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/cli.py::search",
+            "tests/test_store.py::test_index_and_search"
+          ],
+          "expected": [
+            "src/codecompass/indexing/store.py::CodeStore._create_search_text"
+          ],
+          "hits": [
+            "src/codecompass/indexing/store.py::CodeStore._create_search_text"
+          ]
+        },
+        {
+          "query": "docstring extraction",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 0.5,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_docstring",
+            "src/codecompass/indexing/chunker.py::PythonChunker._make_chunk",
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_chunks",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_docstring"
+          ],
+          "hits": [
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_docstring"
+          ]
+        },
+        {
+          "query": "configuration settings",
+          "recall_at_k": 1.0,
+          "precision_at_k": 0.2,
+          "mrr": 0.25,
+          "f1_at_k": 0.33333333333333337,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/store.py::CodeStore.wait_for_index",
+            "src/codecompass/indexing/store.py::CodeStore.get_stats",
+            "src/codecompass/indexing/store.py::CodeStore",
+            "src/codecompass/config.py::Settings",
+            "src/codecompass/indexing/store.py::CodeStore._save_metadata"
+          ],
+          "expected": [
+            "src/codecompass/config.py::Settings"
+          ],
+          "hits": [
+            "src/codecompass/config.py::Settings"
+          ]
+        },
+        {
+          "query": "I want to parse Python files",
+          "recall_at_k": 0.6666666666666666,
+          "precision_at_k": 0.4,
+          "mrr": 1.0,
+          "f1_at_k": 0.5,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file",
+            "src/codecompass/indexing/chunker.py::PythonChunker._make_chunk",
+            "src/codecompass/indexing/chunker.py::CodeChunk",
+            "src/codecompass/indexing/chunker.py::PythonChunker._extract_imports"
+          ],
+          "expected": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file",
+            "src/codecompass/indexing/chunker.py::chunk_repository"
+          ],
+          "hits": [
+            "src/codecompass/indexing/chunker.py::PythonChunker",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file"
+          ]
+        },
+        {
+          "query": "how do I ask questions about my code",
+          "recall_at_k": 0.5,
+          "precision_at_k": 0.2,
+          "mrr": 1.0,
+          "f1_at_k": 0.28571428571428575,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/retrieval/rag.py::answer_question",
+            "src/codecompass/retrieval/search.py::SearchResult.format",
+            "src/codecompass/cli.py::search",
+            "src/codecompass/retrieval/search.py::search_code",
+            "src/codecompass/cli.py::index"
+          ],
+          "expected": [
+            "src/codecompass/cli.py::chat",
+            "src/codecompass/retrieval/rag.py::answer_question"
+          ],
+          "hits": [
+            "src/codecompass/retrieval/rag.py::answer_question"
+          ]
+        },
+        {
+          "query": "save code chunks to database",
+          "recall_at_k": 0.5,
+          "precision_at_k": 0.2,
+          "mrr": 0.3333333333333333,
+          "f1_at_k": 0.28571428571428575,
+          "k": 5,
+          "retrieved": [
+            "src/codecompass/indexing/store.py::CodeStore._save_metadata",
+            "src/codecompass/indexing/chunker.py::PythonChunker.chunk_file",
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "tests/test_store.py::test_index_and_search",
+            "src/codecompass/indexing/store.py::StoredChunk"
+          ],
+          "expected": [
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks",
+            "src/codecompass/indexing/store.py::index_repository"
+          ],
+          "hits": [
+            "src/codecompass/indexing/store.py::CodeStore.index_chunks"
+          ]
+        }
+      ],
+      "avg_recall_at_k": 0.7333333333333334,
+      "avg_precision_at_k": 0.2947368421052632,
+      "avg_mrr": 0.6710526315789473,
+      "avg_f1_at_k": 0.3981203007518797,
+      "num_queries": 19,
+      "k": 5
+    }
+  }
+}
