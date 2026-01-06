@@ -221,4 +221,6 @@ def index_repository(repo_path: Path) -> int:
     count = store.index_chunks(chunks)
 
     print(f"✅ Indexed {count} chunks")
+    print(f"✅ Index stored at: {store.db_path}")  
+
     return count
