@@ -7,6 +7,8 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from codecompass.tools import create_tools
 from codecompass.config import settings
 from langchain_core.messages import BaseMessage
+from langchain_core.runnables import RunnableConfig 
+
 import json
     
 # Debugging
@@ -28,11 +30,14 @@ Choose the most appropriate tool:
 - **get_dependencies**: For understanding what a file imports.
 
 ## Response Guidelines
-
 - Be concise but thorough
 - Reference specific files and line numbers
 - After using tools, synthesize the information into a clear answer
 - If results are insufficient, try a different tool or search query
+
+## Query Alignment Rules (Important)
+- Always respond in direct accordance with the user's question. 
+- Avoid tangents or unrelated explanations. Only provide details relevant to the user's specific query.
 """
 
 # For debugging purposes (specifically printing langgraph generated tool descriptions)
@@ -128,17 +133,17 @@ def create_agent(repo_path: Path, debug: bool = False):
     tools = create_tools(repo_path)
     # llm = ChatOllama(model=settings.chat_model).bind_tools(tools)
     if debug:
-        llm = DebugChatOllama(model=settings.chat_model).bind_tools(tools)
+        llm = DebugChatOllama(model=settings.chat_model, num_ctx=settings.ollama_ctx_window).bind_tools(tools)
     else:
-        llm = ChatOllama(model=settings.chat_model).bind_tools(tools)
+        llm = ChatOllama(model=settings.chat_model, num_ctx=settings.ollama_ctx_window).bind_tools(tools)
 
 
-    def reason(state: MessagesState):
+    def reason(state: MessagesState, config: RunnableConfig):  
         messages = state["messages"]
         if not any(isinstance(m, SystemMessage) for m in messages):
             messages = [SystemMessage(content=SYSTEM_PROMPT)] + messages
         
-        response = llm.invoke(messages)
+        response = llm.invoke(messages, config=config)
         return {"messages": [response]}
     
     def should_continue(state: MessagesState):
@@ -184,6 +189,7 @@ class CodeCompassAgent:
     
     async def chat_stream_async(self, user_message: str):
         """True streaming with token-level events"""
+
         if self.use_memory:
             self.messages.append(HumanMessage(content=user_message))
             input_messages = self.messages
@@ -200,24 +206,20 @@ class CodeCompassAgent:
             
             if kind == "on_chat_model_start":
                 yield {"type": "thinking", "status": "started"}
-            
             elif kind == "on_chat_model_stream":
                 # Token-by-token streaming
                 chunk = event["data"]["chunk"]
                 if hasattr(chunk, "content") and chunk.content:
                     yield {"type": "token", "content": chunk.content}
-            
             elif kind == "on_tool_start":
                 yield {"type": "tool_call", "tool": event["name"]}
-            
             elif kind == "on_tool_end":
                 yield {"type": "tool_result", "content": str(event["data"])[:200]}
-            
             elif kind == "on_chain_end":
                 if "messages" in event["data"].get("output", {}):
                     final_messages = event["data"]["output"]["messages"]
-                    self.last_state = event["data"]["output"]  
-        
+                    self.last_state = event["data"]["output"]
+
         if self.use_memory:
             self.messages = final_messages
     
