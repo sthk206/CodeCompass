@@ -38,7 +38,16 @@ def ensure_ollama_for_command():
     try:
         resp = requests.get(f"{settings.ollama_host}/v1/models", timeout=2)
         server_running = resp.status_code == 200
-        existing_models = [model.get("id", "").replace(":latest", "") for model in resp.json().get("data", [])] if server_running else []
+        existing_models = []
+        if server_running:
+            try:
+                json_resp = resp.json()
+                data = json_resp.get("data") or [] 
+                if not isinstance(data, list):
+                    data = []  
+                existing_models = [model.get("id", "").replace(":latest", "") for model in data]
+            except ValueError:
+                existing_models = []    
     except requests.RequestException:
         server_running = False
         existing_models = []
