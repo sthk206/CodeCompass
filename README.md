@@ -2,7 +2,7 @@
 
 **AI-Powered Repository Understanding Assistant**
 
-CodeCompass helps developers quickly understand and navigate unfamiliar codebases using natural language. Built as a local-first RAG system with an autonomous LangGraph agent, it demonstrates end-to-end ML engineering, from AST-based chunking and hybrid retrieval to systematic evaluation of retrieval strategies and fine-tuning approaches.
+CodeCompass helps developers quickly understand and navigate unfamiliar codebases using natural language. Built as a local-first RAG system with an autonomous LangGraph agent, it manages the full pipeline for understanding complex codebases, from AST-based chunking and hybrid retrieval to systematic evaluation of retrieval strategies and fine-tuning approaches.
 
 > Ask questions like *"How does authentication work?"* or *"What would break if I change this function?"* and get accurate, context-aware answers grounded in your actual codebase.
 
@@ -121,41 +121,41 @@ codecompass status         # Check Ollama connection and index status
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                           CodeCompass Architecture                       │
+│                           CodeCompass Architecture                      │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
 │  User Query                                                             │
 │      │                                                                  │
 │      ▼                                                                  │
-│  ┌─────────────────────────────────────────────────────────────────┐   │
-│  │                    LangGraph Agent                               │   │
-│  │  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐  │   │
-│  │  │   Reason    │───▶│  Tool Call  │───▶│  Synthesize Answer  │  │   │
-│  │  │  (Qwen 7B)  │◀───│   Router    │◀───│                     │  │   │
-│  │  └─────────────┘    └──────┬──────┘    └─────────────────────┘  │   │
-│  └────────────────────────────┼────────────────────────────────────┘   │
+│  ┌─────────────────────────────────────────────────────────────────┐    │
+│  │                    LangGraph Agent                              │    │
+│  │  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────┐  │    │
+│  │  │   Reason    │───▶│  Tool Call  │───▶│  Synthesize Answer  │  │    │
+│  │  │  (Qwen 7B)  │◀───│   Router    │◀───│                     │  │    │
+│  │  └─────────────┘    └──────┬──────┘    └─────────────────────┘  │    │
+│  └────────────────────────────┼────────────────────────────────────┘    │
 │                               │                                         │
-│          ┌────────────────────┼────────────────────┐                   │
-│          ▼                    ▼                    ▼                   │
-│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐             │
-│  │ search_code  │    │  read_file   │    │find_references│             │
-│  │   (HyDE +    │    │              │    │              │             │
-│  │ Hybrid RAG)  │    └──────────────┘    └──────────────┘             │
-│  └──────┬───────┘                                                      │
-│         │            ┌──────────────┐    ┌──────────────┐             │
-│         │            │get_structure │    │get_git_history│             │
-│         │            └──────────────┘    └──────────────┘             │
-│         │                                                              │
-│         │            ┌──────────────┐                                  │
-│         │            │  get_deps    │                                  │
-│         ▼            └──────────────┘                                  │
-│  ┌─────────────────────────────────────┐                               │
-│  │           RAG Pipeline              │                               │
-│  │  ┌─────────┐  ┌─────────┐  ┌─────┐ │                               │
-│  │  │  AST    │─▶│ Embed   │─▶│Lance│ │                               │
-│  │  │ Chunker │  │ (Nomic) │  │ DB  │ │                               │
-│  │  └─────────┘  └─────────┘  └─────┘ │                               │
-│  └─────────────────────────────────────┘                               │
+│          ┌────────────────────┼────────────────────┐                    │
+│          ▼                    ▼                    ▼                    │
+│  ┌──────────────┐    ┌──────────────┐    ┌───────────────┐              │
+│  │ search_code  │    │  read_file   │    │find_references│              │
+│  │   (HyDE +    │    │              │    │               │              │
+│  │ Hybrid RAG)  │    └──────────────┘    └───────────────┘              │
+│  └──────┬───────┘                                                       │
+│         │            ┌──────────────┐    ┌───────────────┐              │
+│         │            │get_structure │    │get_git_history│              │
+│         │            └──────────────┘    └───────────────┘              │
+│         │                                                               │
+│         │            ┌──────────────┐                                   │
+│         │            │  get_deps    │                                   │
+│         ▼            └──────────────┘                                   │
+│  ┌─────────────────────────────────────┐                                │
+│  │           RAG Pipeline              │                                │
+│  │  ┌─────────┐  ┌─────────┐  ┌─────┐  │                                │
+│  │  │  AST    │─▶│ Embed   │─▶│Lance│  │                                │
+│  │  │ Chunker │  │ (Nomic) │  │ DB  │  │                                │
+│  │  └─────────┘  └─────────┘  └─────┘  │                                │
+│  └─────────────────────────────────────┘                                │
 │                                                                         │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
