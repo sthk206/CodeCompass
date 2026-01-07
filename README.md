@@ -7,6 +7,7 @@ CodeCompass helps developers quickly understand and navigate unfamiliar codebase
 > Ask questions like *"How does authentication work?"* or *"What would break if I change this function?"* and get accurate, context-aware answers grounded in your actual codebase.
 
 ---
+https://github.com/user-attachments/assets/c7d2b1c6-d93b-4563-a5d5-0bdac8d30999
 
 ## Highlights
 
