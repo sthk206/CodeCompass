@@ -14,7 +14,7 @@ https://github.com/user-attachments/assets/c7d2b1c6-d93b-4563-a5d5-0bdac8d30999
 - **Hybrid RAG Pipeline**: AST-aware code chunking → LanceDB vector store → semantic + BM25 hybrid search with HyDE query transformation
 - **Autonomous Agent**: Autonomous ReAct LangGraph-powered agent with 6 specialized code-naviation tools
 - **Rigorous Evaluation**: Systematic benchmarks comparing retrieval strategies (HyDE improves recall by 13.9%) and fine-tuning approaches
-- **Local-First**: Runs entirely on your machine with Ollama—no API keys or cloud dependencies, well-suited for privacy-sensitive use cases
+- **Local-First**: Runs entirely on your machine with Ollama, requiring no API keys or cloud dependencies and especially well-suited for privacy-sensitive use cases
 
 ---
 
@@ -186,24 +186,24 @@ codecompass          # Launch interactive menu with arrow navigation
 
 ### Command Details
 
-**Search** — Use when you want to find relevant code without an LLM-synthesized answer:
+**Search** -- Use when you want to find relevant code without an LLM-synthesized answer:
 ```bash
 codecompass search "database connection" --limit 10 --stype 0
 # --stype: 0=HyDE (default), 1=baseline, 2=query expansion
 ```
 
-**Ask** — One-shot question with full agent reasoning:
+**Ask** -- One-shot question with full agent reasoning:
 ```bash
 codecompass ask "What would break if I change the User model?" --debug
 ```
 
-**Chat** — Interactive session with conversation memory:
+**Chat** -- Interactive session with conversation memory:
 ```bash
 codecompass chat --no-memory    # Disable memory for independent questions
 codecompass chat --debug        # Show token usage and tool calls
 ```
 
-**Diagram** — Generate Mermaid diagrams:
+**Diagram** -- Generate Mermaid diagrams:
 ```bash
 codecompass diagram . --type architecture   # Module structure
 codecompass diagram . --type dependency     # Import relationships
@@ -266,11 +266,11 @@ def truncate_middle(text: str, max_chars: int) -> str:
     return text[:head_chars] + "\n\n... [truncated] ...\n\n" + text[-tail_chars:]
 ```
 
-This preserves docstrings, function signatures, and return statements—the most informative parts for code search—while truncating implementation details from the middle.
+This preserves docstrings, function signatures, and return statements (the most informative parts for code search) while truncating implementation details from the middle.
 
 #### Hybrid Search
 
-The vector store (LanceDB) supports both semantic vector search and BM25 lexical search. CodeCompass uses **hybrid search** combining both:
+The vector store (LanceDB) supports both semantic vector search and BM25 lexical search. CodeCompass uses **hybrid search** combining both approaches and reranking results with LanceDB’s default RRFReranker (Reciprocal Rank Fusion):
 
 ```python
 results = (
@@ -297,7 +297,7 @@ I evaluated retrieval strategies on 19 test queries across 5 categories. **HyDE 
 | Query Expansion | 0.718 | 0.295 | 0.737 |
 | Baseline (vector) | 0.644 | 0.263 | 0.754 |
 
-HyDE (Hypothetical Document Embedding) generates a hypothetical code snippet matching the query, then searches for similar real code—bridging the semantic gap between natural language and code.
+HyDE (Hypothetical Document Embedding) generates a hypothetical code snippet matching the query, then searches for similar real codebridging the semantic gap between natural language and code.
 
 **Negative Result**: Context-aware expansion (providing repo imports to the LLM) performed worst (0.428 Recall@5). Testing 4 prompt variations confirmed that adding repository context introduces noise rather than signal.
 
@@ -352,7 +352,7 @@ def create_agent(repo_path: Path, debug: bool = False):
 
 Tool calls for large codebases can return 3-5K tokens per call. The Ollama context window is set to 16,384 tokens (vs. default 4,096) to prevent the model from losing the system prompt and conversation history when processing large tool results.
 
-I explored several token-management strategies, including tool-output compression and sliding-window truncation of older messages. In practice, these approaches added complexity and made token usage harder to reason about during development. Expanding Ollama’s context window to 16K tokens proved to be a simpler and more reliable solution, handling large codebases effectively without additional logic. The compression and windowing code remains in the codebase but is disabled by default. We rely on Ollama’s built-in truncation behavior, which retains the system prompt and the most recent assistant message when the context window is exceeded.
+I explored several token-management strategies, including tool-output compression and sliding-window truncation of older messages. In practice, these approaches added complexity and made token usage harder to reason about during development. Expanding Ollama’s context window to 16K tokens proved to be a simpler and more reliable solution, handling large codebases effectively without additional logic. The compression and windowing code remains in the codebase but is disabled by default, as long-term memory isn’t a critical feature for our use case at the moment (onboarding users typically ask 3–4 related questions in sequence before moving on). We rely on Ollama’s built-in truncation behavior, which retains the system prompt and the most recent assistant message when the context window is exceeded. I plan to revisit these strategies in the future as long-term memory becomes more relevant.
 
 For debugging, the `DebugChatOllama` wrapper tracks token usage across calls:
 
@@ -450,7 +450,7 @@ export CODECOMPASS_OLLAMA_CTX_WINDOW=32768
 ## Tips for Better Results
 
 1. **Be specific**: "How does user authentication work?" beats "How does auth work?"
-2. **Reference files**: "What does src/main.py do?" helps focus the search
+2. **Reference files**: "What does src/main.py do?" is more efficient (and correctly input tool parameters), compared to "What does main do?"
 3. **Ask follow-ups**: Memory is enabled by default, so "What calls that function?" works after discussing a function
 4. **Use search for exploration**: `codecompass search` finds relevant code without LLM overhead when you just want to browse
 
