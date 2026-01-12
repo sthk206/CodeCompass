@@ -10,7 +10,7 @@ from codecompass.tools.base import ToolResult, execute_with_metrics
 
 class FindReferencesInput(BaseModel):
     """Input schema for find_references tool"""
-    symbol: str = Field(description="Exact name of the function, class, or variable to find")
+    symbol: str = Field(description="Exact name of the function, class, variable, or instance")
 
 
 class FindReferencesTool(BaseTool):
@@ -18,8 +18,8 @@ class FindReferencesTool(BaseTool):
     
     name: str = "find_references"
     description: str = (
-        "Find all places in the codebase where a specific function, class, or variable is used. "
-        "Use this when asking questions like 'where is X used?' or 'what calls X?'"
+        "Find all places in the codebase where a specific symbol (function, class, variable/instance) is used. "
+        "Use when you know the exact name and want to see where it's used."
     )
     args_schema: type[BaseModel] = FindReferencesInput
     

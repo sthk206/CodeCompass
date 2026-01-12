@@ -95,11 +95,14 @@ def check_indexed(repo_path: Path) -> bool:
 def show_header():
     """Display the CodeCompass header"""
     console.clear()
+    console.print()
     console.print(Panel(
         Align.center(Text(" Welcome to CodeCompass! 🧭 ", style="bold green")),
         # subtitle="AI-powered repository assistant",
         border_style="green",
         box=box.DOUBLE,
+        padding=(1, 2),
+
     ))
     console.print()
 
@@ -415,7 +418,7 @@ def run_interactive_menu():
     show_header()
     
     # First, get repository path
-    console.print("[bold]Welcome to CodeCompass![/bold]\n")
+    console.print("[bold]Please specify your project path, or press Enter to use the current directory:[/bold]\n")
     
     repo_path = get_repo_path_input()
     if repo_path is None:

@@ -9,7 +9,7 @@ from codecompass.tools.base import ToolResult, execute_with_metrics
 
 class FileStructureInput(BaseModel):
     """Input schema for get_file_structure tool"""
-    directory: str = Field(default=".", description="Directory path relative to repo root")
+    directory: str = Field(default=".", description="Directory path, use '.' for root")
     max_depth: int = Field(default=3, description="Maximum depth to show")
 
 
@@ -18,8 +18,7 @@ class FileStructureTool(BaseTool):
     
     name: str = "get_file_structure"
     description: str = (
-        "Get the directory tree structure of the repository. "
-        "Use when asking about project organization or what files exist."
+        "Get directory tree structure. Use for understanding project organization or finding where files are located."
     )
     args_schema: type[BaseModel] = FileStructureInput
     

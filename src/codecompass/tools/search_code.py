@@ -10,7 +10,7 @@ from .base import ToolResult, execute_with_metrics
 
 class SearchCodeInput(BaseModel):
     query: str = Field(description="Natural language description of what to find")
-    top_k: int = Field(default=5, description="Number of results")
+    top_k: int = Field(default=5, description="Number of results to find")
 
 
 class SearchCodeTool(BaseTool):
@@ -18,8 +18,7 @@ class SearchCodeTool(BaseTool):
     
     name: str = "search_code"
     description: str = (
-        "Search the codebase semantically for relevant code snippets."
-        "Use this when looking for implementations, functionality, or specific code patterns."
+        "Semantic search across the codebase. Use for conceptual queries like 'how is X handled' or 'where is Y implemented' when you don't know the exact file or function name."
     )
     args_schema: type[BaseModel] = SearchCodeInput
     

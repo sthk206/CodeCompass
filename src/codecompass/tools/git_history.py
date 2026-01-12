@@ -25,8 +25,7 @@ class GitHistoryTool(BaseTool):
     
     name: str = "get_git_history"
     description: str = (
-        "Get recent git commit history. Use when asking about changes, "
-        "who modified something, or the history of a file."
+        "Get git commit history. Use for understanding what changed, when, why, and by whom."
     )
     args_schema: type[BaseModel] = GitHistoryInput
     
