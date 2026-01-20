@@ -313,6 +313,27 @@ By Category:
 
 Given that tool calling was solved, I focused fine-tuning efforts on code explanation.
 
+### Training Setup
+
+I used **QLoRA** (Quantized LoRA) with **Unsloth** on Google Colab to fine-tune Qwen 2.5 7B in 4-bit precision. This approach dramatically reduces memory requirements, making it possible to fine-tune a 7B parameter model on Colab's free T4 GPU.
+
+| Component | Details |
+|-----------|---------|
+| Framework | Unsloth + TRL SFTTrainer |
+| Quantization | 4-bit (QLoRA) |
+| LoRA rank | 64, alpha 128 |
+| Dataset | Magicoder-OSS-Instruct-75K (1,400 filtered examples) |
+| Training | 2 epochs, batch size 16 (via gradient accumulation) |
+
+**GGUF Conversion for Ollama**: Unsloth saves LoRA adapters in HuggingFace/PyTorch format (safetensors), but Ollama uses llama.cpp internally, which requires the GGUF file format. I used llama.cpp's `convert_lora_to_gguf.py` to translate the adapter into a format Ollama can load. This enabled a hot-swap architecture where the base `qwen2.5:7b` model handles tool calling, and a separate Ollama model with the LoRA adapter activates for explanation tasks:
+```
+# Modelfile for explanation-specialized model
+FROM qwen2.5:7b
+ADAPTER ./codecompass-explain-adapter.gguf
+PARAMETER temperature 0.1
+PARAMETER stop "<|im_end|>"
+```
+
 ### Methodology
 
 Built an **LLM-as-Judge** evaluation framework before committing to fine-tuning:

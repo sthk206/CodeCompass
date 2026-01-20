@@ -375,7 +375,7 @@ class DebugChatOllama(ChatOllama):
 
 I evaluated fine-tuning for tool calling and code explanation tasks.
 
-#### Tool Calling: No Fine-Tuning Needed
+#### I. Tool Calling: No Fine-Tuning Needed
 
 Through prompt engineering, base Qwen 2.5 7B achieved **95-100% tool selection accuracy** across two benchmarks:
 
@@ -384,9 +384,9 @@ Through prompt engineering, base Qwen 2.5 7B achieved **95-100% tool selection a
 | A (intent-driven) | 21 | 95.2% | 100% |
 | B (tool-driven) | 39 | 100% | 100% |
 
-#### Code Explanation: Negative Result
+#### II. Code Explanation: Negative Result
 
-I trained a LoRA adapter on Magicoder-OSS-Instruct-75K and built an LLM-as-Judge evaluation framework. **The fine-tuned model lost 10/10 comparisons**:
+I trained a QLoRA adapter using Unsloth on Google Colab with Magicoder-OSS-Instruct-75K (1,400 filtered examples). The adapter was converted to GGUF format via llama.cpp's `convert_lora_to_gguf.py` for compatibility with Ollama, enabling a hot-swap architecture where the base model handles tool calling and the adapter activates only for explanation tasks. I built an LLM-as-Judge evaluation framework to compare the fine-tuned model against base Qwen 2.5 7B. **The fine-tuned model lost 10/10 comparisons**:
 
 | Metric | Fine-tuned | Base Model |
 |--------|------------|------------|
@@ -394,8 +394,9 @@ I trained a LoRA adapter on Magicoder-OSS-Instruct-75K and built an LLM-as-Judge
 | Accuracy | 4.10 | 5.00 |
 | Insight | 1.60 | 3.50 |
 | Avg words | 60 | 180 |
+| Inference time | 25.0s | 11.4s |
 
-The fine-tuned model was more concise but sacrificed explanatory depth. The base model's pretraining already captured sufficient code understanding.
+The fine-tuned model was more concise but sacrificed explanatory depth.  Additionally, the adapter introduced a 119% inference slowdown due to the overhead of loading and applying the quantized LoRA weights at runtime. The base model's pretraining already captured sufficient code understanding without these tradeoffs.
 
 **Decision**: Single-model architecture using base Qwen 2.5 7B for all stages.
 
